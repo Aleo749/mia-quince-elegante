@@ -1,13 +1,35 @@
-// Update this page (the content is just a fallback if you fail to update the page)
+import { useRef } from "react";
+import HeroSection from "@/components/invitation/HeroSection";
+import MessageSection from "@/components/invitation/MessageSection";
+import GallerySection from "@/components/invitation/GallerySection";
+import EventDetailsSection from "@/components/invitation/EventDetailsSection";
+import DressCodeSection from "@/components/invitation/DressCodeSection";
+import RSVPSection from "@/components/invitation/RSVPSection";
+import GiftRegistrySection from "@/components/invitation/GiftRegistrySection";
+import ContactSection from "@/components/invitation/ContactSection";
+import Footer from "@/components/invitation/Footer";
+import MusicPlayer from "@/components/invitation/MusicPlayer";
 
 const Index = () => {
+  const rsvpRef = useRef<HTMLElement>(null);
+
+  const scrollToRSVP = () => {
+    rsvpRef.current?.scrollIntoView({ behavior: "smooth" });
+  };
+
   return (
-    <div className="flex min-h-screen items-center justify-center bg-background">
-      <div className="text-center">
-        <h1 className="mb-4 text-4xl font-bold">Welcome to Your Blank App</h1>
-        <p className="text-xl text-muted-foreground">Start building your amazing project here!</p>
-      </div>
-    </div>
+    <main className="min-h-screen bg-background">
+      <HeroSection onScrollToRSVP={scrollToRSVP} />
+      <MessageSection />
+      <GallerySection />
+      <EventDetailsSection />
+      <DressCodeSection />
+      <RSVPSection rsvpRef={rsvpRef} />
+      <GiftRegistrySection />
+      <ContactSection />
+      <Footer />
+      <MusicPlayer />
+    </main>
   );
 };
 
