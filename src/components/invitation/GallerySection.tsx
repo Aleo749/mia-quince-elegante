@@ -16,22 +16,24 @@ const GallerySection = () => {
   return (
     <section 
       ref={ref}
-      className="py-20 px-6 bg-secondary/30"
+      className="py-20 px-6 bg-secondary/50"
     >
       <div className="max-w-6xl mx-auto">
         <div className={`text-center mb-12 transition-all duration-700 ${isInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
-          <Camera className="w-8 h-8 text-primary mx-auto mb-4" />
+          <div className="w-14 h-14 rounded-full bg-card shadow-soft flex items-center justify-center mx-auto mb-4">
+            <Camera className="w-7 h-7 text-primary" />
+          </div>
           <h2 className="font-display text-3xl md:text-4xl text-primary mb-4">
             Galería de Recuerdos
           </h2>
-          <div className="w-24 h-px gold-gradient mx-auto" />
+          <div className="w-24 h-px gold-gradient mx-auto rounded-full" />
         </div>
 
         <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
           {placeholderImages.map((src, index) => (
             <div
               key={index}
-              className={`relative aspect-square overflow-hidden rounded-lg group transition-all duration-700 ${
+              className={`relative aspect-square overflow-hidden rounded-2xl group transition-all duration-700 shadow-soft ${
                 isInView ? 'opacity-100 scale-100' : 'opacity-0 scale-95'
               }`}
               style={{ transitionDelay: `${index * 100}ms` }}
@@ -41,7 +43,7 @@ const GallerySection = () => {
                 alt={`Recuerdo ${index + 1}`}
                 className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-background/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+              <div className="absolute inset-0 bg-gradient-to-t from-foreground/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-2xl" />
             </div>
           ))}
         </div>

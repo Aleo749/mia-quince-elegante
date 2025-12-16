@@ -7,19 +7,21 @@ const DressCodeSection = () => {
   return (
     <section 
       ref={ref}
-      className="py-20 px-6 bg-secondary/30"
+      className="py-20 px-6 bg-secondary/50"
     >
       <div className="max-w-2xl mx-auto text-center">
         <div className={`transition-all duration-700 ${isInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
-          <Shirt className="w-8 h-8 text-primary mx-auto mb-4" />
+          <div className="w-14 h-14 rounded-full bg-card shadow-soft flex items-center justify-center mx-auto mb-4">
+            <Shirt className="w-7 h-7 text-primary" />
+          </div>
           <h2 className="font-display text-3xl md:text-4xl text-primary mb-4">
             Código de Vestimenta
           </h2>
-          <div className="w-24 h-px gold-gradient mx-auto mb-8" />
+          <div className="w-24 h-px gold-gradient mx-auto mb-8 rounded-full" />
         </div>
 
         <div 
-          className={`bg-card border border-border rounded-lg p-8 transition-all duration-700 ${
+          className={`bg-card border border-border rounded-3xl p-8 shadow-soft-lg transition-all duration-700 ${
             isInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
           }`}
           style={{ transitionDelay: '200ms' }}
@@ -30,15 +32,15 @@ const DressCodeSection = () => {
             Queremos que todos brillemos en esta noche mágica.
           </p>
 
-          <div className="flex flex-wrap justify-center gap-4">
-            <div className="px-4 py-2 rounded-full border border-primary/50 bg-primary/10">
-              <span className="text-primary font-body text-sm">Vestido largo</span>
+          <div className="flex flex-wrap justify-center gap-3">
+            <div className="px-5 py-2.5 rounded-full border border-primary/30 bg-primary/5 shadow-soft">
+              <span className="text-primary font-body text-sm font-medium">Vestido largo</span>
             </div>
-            <div className="px-4 py-2 rounded-full border border-primary/50 bg-primary/10">
-              <span className="text-primary font-body text-sm">Traje formal</span>
+            <div className="px-5 py-2.5 rounded-full border border-primary/30 bg-primary/5 shadow-soft">
+              <span className="text-primary font-body text-sm font-medium">Traje formal</span>
             </div>
-            <div className="px-4 py-2 rounded-full border border-primary/50 bg-primary/10">
-              <span className="text-primary font-body text-sm">Colores sobrios</span>
+            <div className="px-5 py-2.5 rounded-full border border-primary/30 bg-primary/5 shadow-soft">
+              <span className="text-primary font-body text-sm font-medium">Colores sobrios</span>
             </div>
           </div>
 

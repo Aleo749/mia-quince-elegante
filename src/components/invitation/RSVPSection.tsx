@@ -119,7 +119,7 @@ const RSVPSection = ({ rsvpRef }: RSVPSectionProps) => {
         className="py-20 px-6"
       >
         <div className="max-w-lg mx-auto text-center">
-          <div className="w-20 h-20 rounded-full gold-gradient flex items-center justify-center mx-auto mb-6 animate-scale-in">
+          <div className="w-20 h-20 rounded-full gold-gradient flex items-center justify-center mx-auto mb-6 animate-scale-in shadow-gold">
             <Check className="w-10 h-10 text-primary-foreground" />
           </div>
           <h2 className="font-display text-3xl md:text-4xl text-primary mb-4">
@@ -143,11 +143,13 @@ const RSVPSection = ({ rsvpRef }: RSVPSectionProps) => {
     >
       <div className="max-w-2xl mx-auto">
         <div className={`text-center mb-12 transition-all duration-700 ${isInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
-          <Users className="w-8 h-8 text-primary mx-auto mb-4" />
+          <div className="w-14 h-14 rounded-full bg-card shadow-soft flex items-center justify-center mx-auto mb-4">
+            <Users className="w-7 h-7 text-primary" />
+          </div>
           <h2 className="font-display text-3xl md:text-4xl text-primary mb-4">
             Confirmar Asistencia
           </h2>
-          <div className="w-24 h-px gold-gradient mx-auto mb-4" />
+          <div className="w-24 h-px gold-gradient mx-auto mb-4 rounded-full" />
           <p className="font-body text-muted-foreground">
             Por favor, confirma tu asistencia antes del 1 de Marzo
           </p>
@@ -155,7 +157,7 @@ const RSVPSection = ({ rsvpRef }: RSVPSectionProps) => {
 
         <form 
           onSubmit={handleSubmit}
-          className={`bg-card border border-border rounded-lg p-6 md:p-8 transition-all duration-700 ${
+          className={`bg-card border border-border rounded-3xl p-6 md:p-8 shadow-soft-lg transition-all duration-700 ${
             isInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
           }`}
           style={{ transitionDelay: '200ms' }}
@@ -164,7 +166,7 @@ const RSVPSection = ({ rsvpRef }: RSVPSectionProps) => {
             {guests.map((guest, index) => (
               <div 
                 key={guest.id}
-                className="p-4 rounded-lg bg-secondary/50 border border-border"
+                className="p-5 rounded-2xl bg-secondary/50 border border-border"
               >
                 <div className="flex items-center justify-between mb-4">
                   <span className="font-body text-sm text-muted-foreground">
@@ -176,7 +178,7 @@ const RSVPSection = ({ rsvpRef }: RSVPSectionProps) => {
                       variant="ghost"
                       size="sm"
                       onClick={() => removeGuest(guest.id)}
-                      className="text-destructive hover:text-destructive/80"
+                      className="text-destructive hover:text-destructive/80 rounded-xl"
                     >
                       <Trash2 className="w-4 h-4" />
                     </Button>
@@ -193,7 +195,7 @@ const RSVPSection = ({ rsvpRef }: RSVPSectionProps) => {
                       value={guest.firstName}
                       onChange={(e) => updateGuest(guest.id, "firstName", e.target.value)}
                       placeholder="Nombre"
-                      className="mt-1 bg-input border-border text-foreground placeholder:text-muted-foreground"
+                      className="mt-1 bg-card border-border text-foreground placeholder:text-muted-foreground rounded-xl"
                     />
                   </div>
                   <div>
@@ -205,7 +207,7 @@ const RSVPSection = ({ rsvpRef }: RSVPSectionProps) => {
                       value={guest.lastName}
                       onChange={(e) => updateGuest(guest.id, "lastName", e.target.value)}
                       placeholder="Apellido"
-                      className="mt-1 bg-input border-border text-foreground placeholder:text-muted-foreground"
+                      className="mt-1 bg-card border-border text-foreground placeholder:text-muted-foreground rounded-xl"
                     />
                   </div>
                 </div>
@@ -215,7 +217,7 @@ const RSVPSection = ({ rsvpRef }: RSVPSectionProps) => {
                     ¿Asistirás?
                   </Label>
                   <div className="flex items-center gap-3">
-                    <span className={`text-sm ${!guest.attending ? 'text-primary' : 'text-muted-foreground'}`}>
+                    <span className={`text-sm ${!guest.attending ? 'text-primary font-medium' : 'text-muted-foreground'}`}>
                       No
                     </span>
                     <Switch
@@ -223,7 +225,7 @@ const RSVPSection = ({ rsvpRef }: RSVPSectionProps) => {
                       checked={guest.attending}
                       onCheckedChange={(checked) => updateGuest(guest.id, "attending", checked)}
                     />
-                    <span className={`text-sm ${guest.attending ? 'text-primary' : 'text-muted-foreground'}`}>
+                    <span className={`text-sm ${guest.attending ? 'text-primary font-medium' : 'text-muted-foreground'}`}>
                       Sí
                     </span>
                   </div>
@@ -237,7 +239,7 @@ const RSVPSection = ({ rsvpRef }: RSVPSectionProps) => {
             type="button"
             variant="outline"
             onClick={addGuest}
-            className="w-full mt-6 border-primary/50 text-primary hover:bg-primary/10"
+            className="w-full mt-6 border-primary/30 text-primary hover:bg-primary/5 rounded-full"
           >
             <UserPlus className="w-4 h-4 mr-2" />
             Agregar otro invitado
@@ -248,7 +250,7 @@ const RSVPSection = ({ rsvpRef }: RSVPSectionProps) => {
             <Button
               type="submit"
               disabled={isSubmitting}
-              className="flex-1 gold-gradient text-primary-foreground font-medium"
+              className="flex-1 gold-gradient text-primary-foreground font-medium rounded-full shadow-gold hover:shadow-soft-lg transition-all"
             >
               {isSubmitting ? (
                 "Enviando..."
@@ -263,7 +265,7 @@ const RSVPSection = ({ rsvpRef }: RSVPSectionProps) => {
               type="button"
               variant="outline"
               onClick={handleWhatsApp}
-              className="flex-1 border-green-500/50 text-green-500 hover:bg-green-500/10"
+              className="flex-1 border-green-500/30 text-green-600 hover:bg-green-500/5 rounded-full"
             >
               <MessageCircle className="w-4 h-4 mr-2" />
               Por WhatsApp

@@ -26,7 +26,7 @@ const Footer = () => {
         </p>
 
         {/* Copyright */}
-        <div className="w-24 h-px gold-gradient mx-auto mb-4" />
+        <div className="w-24 h-px gold-gradient mx-auto mb-4 rounded-full" />
         <p className="font-body text-xs text-muted-foreground">
           © 2025 - Mis XV Años
         </p>
