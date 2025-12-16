@@ -14,18 +14,18 @@ const EventDetailsSection = () => {
           <h2 className="font-display text-3xl md:text-4xl text-primary mb-4">
             Detalles del Evento
           </h2>
-          <div className="w-24 h-px gold-gradient mx-auto" />
+          <div className="w-24 h-px gold-gradient mx-auto rounded-full" />
         </div>
 
-        <div className="grid md:grid-cols-3 gap-8">
+        <div className="grid md:grid-cols-3 gap-6">
           {/* Date */}
           <div 
-            className={`text-center p-6 rounded-lg bg-card border border-border transition-all duration-700 ${
+            className={`text-center p-8 rounded-3xl bg-card border border-border shadow-soft-lg transition-all duration-700 hover:shadow-gold ${
               isInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
             }`}
             style={{ transitionDelay: '100ms' }}
           >
-            <div className="w-16 h-16 rounded-full gold-gradient flex items-center justify-center mx-auto mb-4">
+            <div className="w-16 h-16 rounded-2xl gold-gradient flex items-center justify-center mx-auto mb-4 shadow-gold">
               <Calendar className="w-8 h-8 text-primary-foreground" />
             </div>
             <h3 className="font-display text-xl text-foreground mb-2">Fecha</h3>
@@ -35,12 +35,12 @@ const EventDetailsSection = () => {
 
           {/* Time */}
           <div 
-            className={`text-center p-6 rounded-lg bg-card border border-border transition-all duration-700 ${
+            className={`text-center p-8 rounded-3xl bg-card border border-border shadow-soft-lg transition-all duration-700 hover:shadow-gold ${
               isInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
             }`}
             style={{ transitionDelay: '200ms' }}
           >
-            <div className="w-16 h-16 rounded-full gold-gradient flex items-center justify-center mx-auto mb-4">
+            <div className="w-16 h-16 rounded-2xl gold-gradient flex items-center justify-center mx-auto mb-4 shadow-gold">
               <Clock className="w-8 h-8 text-primary-foreground" />
             </div>
             <h3 className="font-display text-xl text-foreground mb-2">Hora</h3>
@@ -50,12 +50,12 @@ const EventDetailsSection = () => {
 
           {/* Location */}
           <div 
-            className={`text-center p-6 rounded-lg bg-card border border-border transition-all duration-700 ${
+            className={`text-center p-8 rounded-3xl bg-card border border-border shadow-soft-lg transition-all duration-700 hover:shadow-gold ${
               isInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
             }`}
             style={{ transitionDelay: '300ms' }}
           >
-            <div className="w-16 h-16 rounded-full gold-gradient flex items-center justify-center mx-auto mb-4">
+            <div className="w-16 h-16 rounded-2xl gold-gradient flex items-center justify-center mx-auto mb-4 shadow-gold">
               <MapPin className="w-8 h-8 text-primary-foreground" />
             </div>
             <h3 className="font-display text-xl text-foreground mb-2">Lugar</h3>
@@ -66,7 +66,7 @@ const EventDetailsSection = () => {
 
         {/* Map */}
         <div 
-          className={`mt-12 rounded-lg overflow-hidden border border-border transition-all duration-700 ${
+          className={`mt-12 rounded-3xl overflow-hidden border border-border shadow-soft-lg transition-all duration-700 ${
             isInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
           }`}
           style={{ transitionDelay: '400ms' }}
