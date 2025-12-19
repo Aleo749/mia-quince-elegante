@@ -7,8 +7,11 @@ const MessageSection = () => {
   return (
     <section 
       ref={ref}
-      className="py-20 px-6 flex flex-col items-center"
+      className="relative py-20 px-6 flex flex-col items-center"
     >
+      {/* Section Number */}
+      <span className="section-number">01</span>
+
       <div className={`max-w-2xl text-center transition-all duration-1000 ${isInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
         <div className="w-14 h-14 rounded-full bg-card shadow-soft flex items-center justify-center mx-auto mb-6">
           <Heart className="w-7 h-7 text-primary" />

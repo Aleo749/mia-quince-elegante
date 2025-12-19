@@ -7,8 +7,11 @@ const DressCodeSection = () => {
   return (
     <section 
       ref={ref}
-      className="py-20 px-6 bg-secondary/50"
+      className="relative py-20 px-6 bg-secondary/50"
     >
+      {/* Section Number */}
+      <span className="section-number">04</span>
+
       <div className="max-w-2xl mx-auto text-center">
         <div className={`transition-all duration-700 ${isInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
           <div className="w-14 h-14 rounded-full bg-card shadow-soft flex items-center justify-center mx-auto mb-4">
@@ -45,7 +48,7 @@ const DressCodeSection = () => {
           </div>
 
           <p className="font-body text-muted-foreground text-sm mt-6">
-            * Evitar colores blanco y azul rey (reservados para la quinceañera)
+            * Evitar colores blanco y rosa (reservados para la quinceañera)
           </p>
         </div>
       </div>

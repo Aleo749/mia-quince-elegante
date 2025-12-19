@@ -8,7 +8,6 @@ import RSVPSection from "@/components/invitation/RSVPSection";
 import GiftRegistrySection from "@/components/invitation/GiftRegistrySection";
 import ContactSection from "@/components/invitation/ContactSection";
 import Footer from "@/components/invitation/Footer";
-import MusicPlayer from "@/components/invitation/MusicPlayer";
 
 const Index = () => {
   const rsvpRef = useRef<HTMLElement>(null);
@@ -28,7 +27,6 @@ const Index = () => {
       <GiftRegistrySection />
       <ContactSection />
       <Footer />
-      <MusicPlayer />
     </main>
   );
 };
