@@ -39,11 +39,10 @@ const HeroSection = ({
         Mis Quince Años
       </p>
 
-      <h1 className="font-display text-4xl md:text-6xl lg:text-7xl text-center mb-2 animate-fade-in-up gold-text-gradient" style={{
+      <h1 style={{
       animationDelay: "0.3s"
-    }}>
-        Mia Valentina
-      </h1>
+    }} className="font-display md:text-6xl text-center mb-2 animate-fade-in-up gold-text-gradient lg:text-9xl text-8xl">Mia
+Valentina</h1>
       
       
 
