@@ -8,8 +8,11 @@ const ContactSection = () => {
   return (
     <section 
       ref={ref}
-      className="py-20 px-6"
+      className="relative py-20 px-6"
     >
+      {/* Section Number */}
+      <span className="section-number">07</span>
+
       <div className="max-w-2xl mx-auto text-center">
         <div className={`transition-all duration-700 ${isInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
           <div className="w-14 h-14 rounded-full bg-card shadow-soft flex items-center justify-center mx-auto mb-4">

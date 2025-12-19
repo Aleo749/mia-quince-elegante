@@ -50,7 +50,6 @@ const RSVPSection = ({ rsvpRef }: RSVPSectionProps) => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
-    // Validate all guests have names
     const invalidGuests = guests.filter(g => !g.firstName.trim() || !g.lastName.trim());
     if (invalidGuests.length > 0) {
       toast({
@@ -64,7 +63,6 @@ const RSVPSection = ({ rsvpRef }: RSVPSectionProps) => {
     setIsSubmitting(true);
 
     try {
-      // Create the RSVP group
       const { data: groupData, error: groupError } = await supabase
         .from('rsvp_groups')
         .insert({})
@@ -73,7 +71,6 @@ const RSVPSection = ({ rsvpRef }: RSVPSectionProps) => {
 
       if (groupError) throw groupError;
 
-      // Insert all guests
       const guestsToInsert = guests.map(g => ({
         group_id: groupData.id,
         first_name: g.firstName.trim(),
@@ -116,8 +113,11 @@ const RSVPSection = ({ rsvpRef }: RSVPSectionProps) => {
     return (
       <section 
         ref={rsvpRef as React.RefObject<HTMLDivElement>}
-        className="py-20 px-6"
+        className="relative py-20 px-6"
       >
+        {/* Section Number */}
+        <span className="section-number">05</span>
+
         <div className="max-w-lg mx-auto text-center">
           <div className="w-20 h-20 rounded-full gold-gradient flex items-center justify-center mx-auto mb-6 animate-scale-in shadow-gold">
             <Check className="w-10 h-10 text-primary-foreground" />
@@ -139,8 +139,11 @@ const RSVPSection = ({ rsvpRef }: RSVPSectionProps) => {
         (ref as React.MutableRefObject<HTMLElement | null>).current = el;
         (rsvpRef as React.MutableRefObject<HTMLElement | null>).current = el;
       }}
-      className="py-20 px-6"
+      className="relative py-20 px-6"
     >
+      {/* Section Number */}
+      <span className="section-number">05</span>
+
       <div className="max-w-2xl mx-auto">
         <div className={`text-center mb-12 transition-all duration-700 ${isInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
           <div className="w-14 h-14 rounded-full bg-card shadow-soft flex items-center justify-center mx-auto mb-4">
@@ -234,7 +237,6 @@ const RSVPSection = ({ rsvpRef }: RSVPSectionProps) => {
             ))}
           </div>
 
-          {/* Add guest button */}
           <Button
             type="button"
             variant="outline"
@@ -245,7 +247,6 @@ const RSVPSection = ({ rsvpRef }: RSVPSectionProps) => {
             Agregar otro invitado
           </Button>
 
-          {/* Submit buttons */}
           <div className="mt-8 flex flex-col sm:flex-row gap-4">
             <Button
               type="submit"
