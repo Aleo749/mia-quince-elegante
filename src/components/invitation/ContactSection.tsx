@@ -1,7 +1,7 @@
 import { useInView } from "@/hooks/useInView";
 import { Phone, MessageCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import SectionBadge from "@/components/common/SectionBadge";
+
 
 const ContactSection = () => {
   const { ref, isInView } = useInView({ threshold: 0.3 });

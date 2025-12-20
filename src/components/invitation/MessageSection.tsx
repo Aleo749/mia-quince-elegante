@@ -1,6 +1,6 @@
 import { Heart } from "lucide-react";
 import { useInView } from "@/hooks/useInView";
-import SectionBadge from "@/components/common/SectionBadge";
+
 
 const MessageSection = () => {
   const { ref, isInView } = useInView({ threshold: 0.3 });

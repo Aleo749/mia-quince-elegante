@@ -1,6 +1,6 @@
 import { useInView } from "@/hooks/useInView";
 import { Gift, CreditCard, Wallet } from "lucide-react";
-import SectionBadge from "@/components/common/SectionBadge";
+
 
 const GiftRegistrySection = () => {
   const { ref, isInView } = useInView({ threshold: 0.3 });
@@ -38,9 +38,8 @@ const GiftRegistrySection = () => {
             </div>
             <h3 className="font-display text-xl text-foreground mb-4">Transferencia</h3>
             <div className="space-y-2 text-sm font-body">
-              <p className="text-muted-foreground">Banco: Banco Nación</p>
-              <p className="text-foreground font-medium">CBU: 0110000000000000000001</p>
-              <p className="text-muted-foreground">Alias: MIA.QUINCE.2025</p>
+              <p className="text-muted-foreground">CVU</p>
+              <p className="text-foreground font-medium">0000003100072830126087</p>
             </div>
           </div>
 
@@ -56,7 +55,7 @@ const GiftRegistrySection = () => {
             <h3 className="font-display text-xl text-foreground mb-4">Billetera Virtual</h3>
             <div className="space-y-2 text-sm font-body">
               <p className="text-muted-foreground">Mercado Pago</p>
-              <p className="text-foreground font-medium">mia.valentina@email.com</p>
+              <p className="text-foreground font-medium">miafioquetti.mp</p>
             </div>
 
             {/* QR Placeholder */}
