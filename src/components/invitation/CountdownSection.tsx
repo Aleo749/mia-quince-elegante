@@ -59,19 +59,26 @@ const CountdownSection = () => {
   const CountdownCard = ({ 
     value, 
     label, 
-    delay 
+    delay,
+    isSeconds = false
   }: { 
     value: number; 
     label: string; 
     delay: string;
+    isSeconds?: boolean;
   }) => {
     const [isAnimating, setIsAnimating] = useState(false);
     const [prevValue, setPrevValue] = useState(value);
+    const [displayValue, setDisplayValue] = useState(value);
 
     useEffect(() => {
       if (value !== prevValue) {
         setIsAnimating(true);
-        setPrevValue(value);
+        // Animación de flip para el cambio de número
+        setTimeout(() => {
+          setDisplayValue(value);
+          setPrevValue(value);
+        }, 200);
         const timer = setTimeout(() => setIsAnimating(false), 600);
         return () => clearTimeout(timer);
       }
@@ -79,60 +86,102 @@ const CountdownSection = () => {
 
     return (
       <div
-        className={`relative flex flex-col items-center justify-center transition-all duration-700 ${
+        className={`relative flex flex-col items-center justify-center transition-all duration-1000 ${
           isInView ? "opacity-100 translate-y-0 scale-100" : "opacity-0 translate-y-20 scale-95"
         }`}
         style={{ transitionDelay: delay }}
       >
-        {/* Partículas flotantes alrededor */}
-        <div className="absolute inset-0 pointer-events-none">
-          <div className="absolute top-0 left-1/2 w-1 h-1 bg-primary rounded-full animate-float opacity-60" style={{ animationDelay: "0s" }} />
-          <div className="absolute bottom-0 right-0 w-1.5 h-1.5 bg-primary rounded-full animate-float opacity-40" style={{ animationDelay: "1s" }} />
-          <div className="absolute top-1/2 left-0 w-1 h-1 bg-primary rounded-full animate-float opacity-50" style={{ animationDelay: "0.5s" }} />
+        {/* Partículas mágicas flotantes */}
+        <div className="absolute inset-0 pointer-events-none overflow-visible">
+          {[...Array(3)].map((_, i) => (
+            <div
+              key={i}
+              className="absolute w-2 h-2 bg-primary rounded-full animate-float opacity-40"
+              style={{
+                left: `${20 + i * 30}%`,
+                top: `${10 + i * 20}%`,
+                animationDelay: `${i * 0.3}s`,
+                animationDuration: `${2 + i * 0.5}s`,
+              }}
+            />
+          ))}
         </div>
 
-        {/* Carta principal */}
-        <div className="relative w-full max-w-[200px] md:max-w-[240px] lg:max-w-[280px] aspect-square">
-          {/* Glow de fondo */}
-          <div className="absolute inset-0 gold-gradient rounded-3xl blur-xl opacity-30 animate-pulse" />
+        {/* Carta principal con estilo mágico */}
+        <div className="relative w-full aspect-square" style={{ maxWidth: 'min(45vw, 320px)' }}>
+          {/* Aura mágica de fondo */}
+          <div className="absolute -inset-4 gold-gradient rounded-3xl blur-2xl opacity-20 animate-pulse" />
+          <div className={`absolute -inset-2 gold-gradient rounded-3xl blur-lg opacity-30 transition-all duration-1000 ${
+            isAnimating ? "scale-110 opacity-50" : "scale-100"
+          }`} />
           
           {/* Contenedor principal */}
-          <div className="relative h-full bg-card border-2 border-primary rounded-3xl shadow-gold overflow-hidden backdrop-blur-sm">
-            {/* Efecto de brillo animado */}
-            <div className="absolute inset-0 bg-gradient-to-br from-primary/20 via-transparent to-transparent animate-shimmer" />
+          <div className="relative h-full bg-gradient-to-br from-card via-card to-primary/5 border-2 border-primary/50 rounded-3xl shadow-gold overflow-hidden backdrop-blur-sm">
+            {/* Efecto de brillo mágico animado */}
+            <div className="absolute inset-0 bg-gradient-to-br from-primary/30 via-transparent to-transparent animate-shimmer" />
+            <div className={`absolute inset-0 bg-gradient-to-t from-primary/40 via-transparent to-transparent transition-opacity duration-300 ${
+              isAnimating ? "opacity-100" : "opacity-0"
+            }`} />
             
             {/* Contenido */}
-            <div className="relative h-full flex flex-col items-center justify-center p-6">
-              {/* Valor numérico */}
-              <div className="relative">
-                <span
-                  className={`block font-display text-6xl md:text-7xl lg:text-8xl font-bold gold-text-gradient transition-all duration-500 ${
-                    isAnimating ? "scale-125 animate-bounce" : "scale-100"
-                  }`}
-                >
-                  {String(value).padStart(2, "0")}
-                </span>
+            <div className="relative h-full flex flex-col items-center justify-center p-4 md:p-6">
+              {/* Valor numérico con efecto de flip */}
+              <div className="relative perspective-1000">
+                <div className={`relative transform-style-preserve-3d transition-transform duration-500 ${
+                  isAnimating ? "rotate-x-180" : "rotate-x-0"
+                }`}>
+                  {/* Cara frontal */}
+                  <div className="backface-hidden">
+                    <span
+                      className={`block font-display text-7xl sm:text-8xl md:text-9xl lg:text-[10rem] font-bold gold-text-gradient leading-none transition-all duration-500 ${
+                        isAnimating ? "scale-110" : "scale-100"
+                      }`}
+                      style={{ fontSize: 'clamp(3.5rem, 12vw, 10rem)' }}
+                    >
+                      {String(displayValue).padStart(2, "0")}
+                    </span>
+                  </div>
+                  
+                  {/* Cara trasera (durante el flip) */}
+                  <div className="absolute inset-0 backface-hidden rotate-x-180">
+                    <span
+                      className="block font-display text-7xl sm:text-8xl md:text-9xl lg:text-[10rem] font-bold gold-text-gradient leading-none opacity-50"
+                      style={{ fontSize: 'clamp(3.5rem, 12vw, 10rem)' }}
+                    >
+                      {String(prevValue).padStart(2, "0")}
+                    </span>
+                  </div>
+                </div>
                 
-                {/* Efecto de resplandor en el número */}
-                <div className="absolute inset-0 flex items-center justify-center">
-                  <span className="font-display text-6xl md:text-7xl lg:text-8xl font-bold text-primary/20 blur-sm">
-                    {String(value).padStart(2, "0")}
+                {/* Efecto de resplandor mágico en el número */}
+                <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+                  <span 
+                    className="font-display font-bold text-primary/25 blur-md leading-none animate-pulse"
+                    style={{ fontSize: 'clamp(3.5rem, 12vw, 10rem)' }}
+                  >
+                    {String(displayValue).padStart(2, "0")}
                   </span>
                 </div>
               </div>
 
-              {/* Etiqueta */}
-              <p className="mt-4 font-body text-sm md:text-base uppercase tracking-wider text-muted-foreground font-medium">
+              {/* Etiqueta con efecto mágico */}
+              <p className={`mt-2 md:mt-4 font-body text-xs sm:text-sm md:text-base uppercase tracking-wider text-muted-foreground font-medium transition-all duration-300 ${
+                isAnimating && isSeconds ? "text-primary scale-110" : ""
+              }`}>
                 {label}
               </p>
             </div>
 
-            {/* Decoración de esquina */}
-            <div className="absolute top-2 right-2">
-              <Sparkles className="w-4 h-4 text-primary animate-float opacity-70" />
+            {/* Estrellas mágicas decorativas */}
+            <div className="absolute top-3 right-3">
+              <Sparkles className={`w-4 h-4 text-primary animate-float opacity-70 transition-all duration-300 ${
+                isAnimating && isSeconds ? "scale-150 opacity-100" : ""
+              }`} />
             </div>
-            <div className="absolute bottom-2 left-2">
-              <Sparkles className="w-3 h-3 text-primary animate-float opacity-60" style={{ animationDelay: "0.5s" }} />
+            <div className="absolute bottom-3 left-3">
+              <Sparkles className={`w-3 h-3 text-primary animate-float opacity-60 transition-all duration-300 ${
+                isAnimating && isSeconds ? "scale-150 opacity-100" : ""
+              }`} style={{ animationDelay: "0.5s" }} />
             </div>
           </div>
         </div>
@@ -192,7 +241,7 @@ const CountdownSection = () => {
 
         {/* Contador principal */}
         {!isExpired ? (
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-8 lg:gap-12">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4 md:gap-6 lg:gap-8 px-2 sm:px-4">
             <CountdownCard value={timeLeft.days} label="Días" delay="100ms" />
             <CountdownCard value={timeLeft.hours} label="Horas" delay="200ms" />
             <CountdownCard value={timeLeft.minutes} label="Minutos" delay="300ms" />
