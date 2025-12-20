@@ -1,5 +1,6 @@
 import { useInView } from "@/hooks/useInView";
 import { Calendar, Clock, MapPin } from "lucide-react";
+import SectionBadge from "@/components/common/SectionBadge";
 
 const EventDetailsSection = () => {
   const { ref, isInView } = useInView({ threshold: 0.3 });
@@ -9,8 +10,7 @@ const EventDetailsSection = () => {
       ref={ref}
       className="relative py-20 px-6"
     >
-      {/* Section Number */}
-      <span className="section-number">03</span>
+
 
       <div className="max-w-6xl mx-auto">
         <div className={`text-center mb-12 transition-all duration-700 ${isInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>

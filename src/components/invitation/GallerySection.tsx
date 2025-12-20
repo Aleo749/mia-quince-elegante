@@ -6,6 +6,7 @@ import mia2 from "@/assets/gallery/mia-2.jpeg";
 import mia3 from "@/assets/gallery/mia-3.jpeg";
 import mia4 from "@/assets/gallery/mia-4.jpeg";
 
+
 const galleryImages = [
   { src: mia1, alt: "Mia de bebé" },
   { src: mia2, alt: "Mia en el tobogán" },
@@ -62,8 +63,7 @@ const GallerySection = () => {
       ref={ref}
       className="relative section-padding-y section-padding bg-secondary/50"
     >
-      {/* Section Number */}
-      <span className="section-number">03</span>
+
 
       <div className="max-w-4xl mx-auto">
         <div className={`text-center mb-12 transition-all duration-700 ${isInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>

@@ -1,31 +1,38 @@
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,500&family=Montserrat:wght@300;400;500;600;700&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,500&family=Montserrat:wght@300;400;500;600;700&display=swap');
-
 @layer base {
   :root {
     /* Modern Pastel Pink Quinceañera Theme */
-    --background: 350 80% 97%; /* Pastel Pink #FDF2F8 */
-    --foreground: 336 78% 30%; /* Dark Rose #831843 */
+    --background: 350 80% 97%;
+    /* Pastel Pink #FDF2F8 */
+    --foreground: 336 78% 30%;
+    /* Dark Rose #831843 */
 
-    --card: 0 0% 100%; /* Pure White */
+    --card: 0 0% 100%;
+    /* Pure White */
     --card-foreground: 336 78% 30%;
 
     --popover: 0 0% 100%;
     --popover-foreground: 336 78% 30%;
 
-    --primary: 43 60% 56%; /* Warm Gold #D4A84B */
+    --primary: 43 60% 56%;
+    /* Warm Gold #D4A84B */
     --primary-foreground: 336 78% 20%;
 
-    --secondary: 350 60% 94%; /* Lighter pastel pink */
+    --secondary: 350 60% 94%;
+    /* Lighter pastel pink */
     --secondary-foreground: 336 78% 30%;
 
     --muted: 350 40% 90%;
-    --muted-foreground: 336 40% 50%; /* Rose-gray for secondary text */
+    --muted-foreground: 336 40% 50%;
+    /* Rose-gray for secondary text */
 
-    --accent: 43 60% 56%; /* Gold */
+    --accent: 43 60% 56%;
+    /* Gold */
     --accent-foreground: 336 78% 20%;
 
     --destructive: 0 84.2% 60.2%;
@@ -98,7 +105,12 @@
     font-family: 'Montserrat', sans-serif;
   }
 
-  h1, h2, h3, h4, h5, h6 {
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
     font-family: 'Cormorant Garamond', serif;
   }
 }
@@ -107,7 +119,7 @@
   .font-display {
     font-family: 'Cormorant Garamond', serif;
   }
-  
+
   .font-body {
     font-family: 'Montserrat', sans-serif;
   }
@@ -168,7 +180,16 @@
   }
 
   .section-number {
-    @apply absolute top-6 right-6 font-display text-5xl md:text-6xl text-primary/20 select-none pointer-events-none;
+    @apply absolute top-6 right-6 font-display text-5xl md:text-6xl select-none pointer-events-none;
+    color: hsl(var(--gold) / 0.15);
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    /* Subtle background for better visibility */
+    background: linear-gradient(135deg, hsl(var(--gold) / 0.08) 0%, hsl(var(--gold) / 0.03) 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    /* Optional: add subtle shadow for depth */
+    text-shadow: 0 2px 8px hsl(var(--background) / 0.3);
   }
 
   /* Touch Target Utilities */
@@ -210,6 +231,7 @@
   from {
     opacity: 0;
   }
+
   to {
     opacity: 1;
   }
@@ -220,6 +242,7 @@
     opacity: 0;
     transform: translateY(30px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
@@ -231,6 +254,7 @@
     opacity: 0;
     transform: scale(0.9);
   }
+
   to {
     opacity: 1;
     transform: scale(1);
@@ -238,9 +262,12 @@
 }
 
 @keyframes float {
-  0%, 100% {
+
+  0%,
+  100% {
     transform: translateY(0);
   }
+
   50% {
     transform: translateY(-10px);
   }
@@ -251,6 +278,7 @@
     opacity: 0;
     transform: translateY(20px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
@@ -261,18 +289,17 @@
   0% {
     background-position: -1000px 0;
   }
+
   100% {
     background-position: 1000px 0;
   }
 }
 
 .animate-shimmer {
-  background: linear-gradient(
-    90deg,
-    transparent 0%,
-    rgba(255, 255, 255, 0.1) 50%,
-    transparent 100%
-  );
+  background: linear-gradient(90deg,
+      transparent 0%,
+      rgba(255, 255, 255, 0.1) 50%,
+      transparent 100%);
   background-size: 1000px 100%;
   animation: shimmer 3s infinite;
 }
@@ -299,10 +326,13 @@
 }
 
 @keyframes magic-glow {
-  0%, 100% {
+
+  0%,
+  100% {
     opacity: 0.3;
     transform: scale(1);
   }
+
   50% {
     opacity: 0.6;
     transform: scale(1.05);
@@ -318,6 +348,7 @@
     opacity: 1;
     transform: scale(1) translateY(0);
   }
+
   to {
     opacity: 0;
     transform: scale(0.8) translateY(-10px);
@@ -329,9 +360,12 @@
 }
 
 @keyframes bounce-subtle {
-  0%, 100% {
+
+  0%,
+  100% {
     transform: scale(1.25);
   }
+
   50% {
     transform: scale(1.15);
   }

@@ -1,5 +1,6 @@
 import { useInView } from "@/hooks/useInView";
 import { Gift, CreditCard, Wallet } from "lucide-react";
+import SectionBadge from "@/components/common/SectionBadge";
 
 const GiftRegistrySection = () => {
   const { ref, isInView } = useInView({ threshold: 0.3 });
@@ -9,8 +10,7 @@ const GiftRegistrySection = () => {
       ref={ref}
       className="relative section-padding-y section-padding bg-secondary/50"
     >
-      {/* Section Number */}
-      <span className="section-number">06</span>
+
 
       <div className="max-w-2xl mx-auto">
         <div className={`text-center mb-12 transition-all duration-700 ${isInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>

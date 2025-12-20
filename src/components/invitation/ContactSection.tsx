@@ -1,6 +1,7 @@
 import { useInView } from "@/hooks/useInView";
 import { Phone, MessageCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import SectionBadge from "@/components/common/SectionBadge";
 
 const ContactSection = () => {
   const { ref, isInView } = useInView({ threshold: 0.3 });
@@ -10,8 +11,7 @@ const ContactSection = () => {
       ref={ref}
       className="relative section-padding-y section-padding"
     >
-      {/* Section Number */}
-      <span className="section-number">07</span>
+
 
       <div className="max-w-2xl mx-auto text-center">
         <div className={`transition-all duration-700 ${isInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>

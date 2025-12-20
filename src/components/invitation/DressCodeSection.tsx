@@ -9,8 +9,7 @@ const DressCodeSection = () => {
       ref={ref}
       className="relative section-padding-y section-padding bg-secondary/50"
     >
-      {/* Section Number */}
-      <span className="section-number">04</span>
+
 
       <div className="max-w-2xl mx-auto text-center">
         <div className={`transition-all duration-700 ${isInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
