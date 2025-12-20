@@ -1,0 +1,240 @@
+import { useState, useEffect } from "react";
+import { useInView } from "@/hooks/useInView";
+import { Sparkles, Clock } from "lucide-react";
+
+interface TimeLeft {
+  days: number;
+  hours: number;
+  minutes: number;
+  seconds: number;
+}
+
+const CountdownSection = () => {
+  const { ref, isInView } = useInView({ threshold: 0.2 });
+  const [timeLeft, setTimeLeft] = useState<TimeLeft>({
+    days: 0,
+    hours: 0,
+    minutes: 0,
+    seconds: 0,
+  });
+  const [isExpired, setIsExpired] = useState(false);
+
+  // Fecha del evento: 15 de marzo de 2025 a las 20:00 hrs
+  const eventDate = new Date("2025-03-15T20:00:00");
+
+  useEffect(() => {
+    const calculateTimeLeft = () => {
+      const now = new Date().getTime();
+      const distance = eventDate.getTime() - now;
+
+      if (distance < 0) {
+        setIsExpired(true);
+        return {
+          days: 0,
+          hours: 0,
+          minutes: 0,
+          seconds: 0,
+        };
+      }
+
+      return {
+        days: Math.floor(distance / (1000 * 60 * 60 * 24)),
+        hours: Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)),
+        minutes: Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60)),
+        seconds: Math.floor((distance % (1000 * 60)) / 1000),
+      };
+    };
+
+    // Calcular inmediatamente
+    setTimeLeft(calculateTimeLeft());
+
+    // Actualizar cada segundo
+    const timer = setInterval(() => {
+      setTimeLeft(calculateTimeLeft());
+    }, 1000);
+
+    return () => clearInterval(timer);
+  }, []);
+
+  const CountdownCard = ({ 
+    value, 
+    label, 
+    delay 
+  }: { 
+    value: number; 
+    label: string; 
+    delay: string;
+  }) => {
+    const [isAnimating, setIsAnimating] = useState(false);
+    const [prevValue, setPrevValue] = useState(value);
+
+    useEffect(() => {
+      if (value !== prevValue) {
+        setIsAnimating(true);
+        setPrevValue(value);
+        const timer = setTimeout(() => setIsAnimating(false), 600);
+        return () => clearTimeout(timer);
+      }
+    }, [value, prevValue]);
+
+    return (
+      <div
+        className={`relative flex flex-col items-center justify-center transition-all duration-700 ${
+          isInView ? "opacity-100 translate-y-0 scale-100" : "opacity-0 translate-y-20 scale-95"
+        }`}
+        style={{ transitionDelay: delay }}
+      >
+        {/* Partículas flotantes alrededor */}
+        <div className="absolute inset-0 pointer-events-none">
+          <div className="absolute top-0 left-1/2 w-1 h-1 bg-primary rounded-full animate-float opacity-60" style={{ animationDelay: "0s" }} />
+          <div className="absolute bottom-0 right-0 w-1.5 h-1.5 bg-primary rounded-full animate-float opacity-40" style={{ animationDelay: "1s" }} />
+          <div className="absolute top-1/2 left-0 w-1 h-1 bg-primary rounded-full animate-float opacity-50" style={{ animationDelay: "0.5s" }} />
+        </div>
+
+        {/* Carta principal */}
+        <div className="relative w-full max-w-[200px] md:max-w-[240px] lg:max-w-[280px] aspect-square">
+          {/* Glow de fondo */}
+          <div className="absolute inset-0 gold-gradient rounded-3xl blur-xl opacity-30 animate-pulse" />
+          
+          {/* Contenedor principal */}
+          <div className="relative h-full bg-card border-2 border-primary rounded-3xl shadow-gold overflow-hidden backdrop-blur-sm">
+            {/* Efecto de brillo animado */}
+            <div className="absolute inset-0 bg-gradient-to-br from-primary/20 via-transparent to-transparent animate-shimmer" />
+            
+            {/* Contenido */}
+            <div className="relative h-full flex flex-col items-center justify-center p-6">
+              {/* Valor numérico */}
+              <div className="relative">
+                <span
+                  className={`block font-display text-6xl md:text-7xl lg:text-8xl font-bold gold-text-gradient transition-all duration-500 ${
+                    isAnimating ? "scale-125 animate-bounce" : "scale-100"
+                  }`}
+                >
+                  {String(value).padStart(2, "0")}
+                </span>
+                
+                {/* Efecto de resplandor en el número */}
+                <div className="absolute inset-0 flex items-center justify-center">
+                  <span className="font-display text-6xl md:text-7xl lg:text-8xl font-bold text-primary/20 blur-sm">
+                    {String(value).padStart(2, "0")}
+                  </span>
+                </div>
+              </div>
+
+              {/* Etiqueta */}
+              <p className="mt-4 font-body text-sm md:text-base uppercase tracking-wider text-muted-foreground font-medium">
+                {label}
+              </p>
+            </div>
+
+            {/* Decoración de esquina */}
+            <div className="absolute top-2 right-2">
+              <Sparkles className="w-4 h-4 text-primary animate-float opacity-70" />
+            </div>
+            <div className="absolute bottom-2 left-2">
+              <Sparkles className="w-3 h-3 text-primary animate-float opacity-60" style={{ animationDelay: "0.5s" }} />
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  };
+
+  return (
+    <section
+      ref={ref}
+      className="relative py-24 md:py-32 px-6 overflow-hidden"
+    >
+      {/* Sección número */}
+      <span className="section-number">02</span>
+
+      {/* Partículas de fondo animadas */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        {[...Array(20)].map((_, i) => (
+          <div
+            key={i}
+            className="absolute w-1 h-1 bg-primary rounded-full animate-float opacity-30"
+            style={{
+              left: `${Math.random() * 100}%`,
+              top: `${Math.random() * 100}%`,
+              animationDelay: `${Math.random() * 3}s`,
+              animationDuration: `${3 + Math.random() * 2}s`,
+            }}
+          />
+        ))}
+      </div>
+
+      {/* Líneas decorativas de fondo */}
+      <div className="absolute top-1/4 left-0 w-full h-px gold-gradient opacity-20 animate-pulse" />
+      <div className="absolute bottom-1/4 left-0 w-full h-px gold-gradient opacity-20 animate-pulse" style={{ animationDelay: "1s" }} />
+
+      <div className="max-w-7xl mx-auto">
+        {/* Título de la sección */}
+        <div
+          className={`text-center mb-16 transition-all duration-700 ${
+            isInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
+          }`}
+        >
+          <div className="inline-flex items-center gap-3 mb-6">
+            <Clock className="w-8 h-8 md:w-10 md:h-10 text-primary animate-float" />
+            <h2 className="font-display text-4xl md:text-5xl lg:text-6xl text-primary">
+              Cuenta Regresiva
+            </h2>
+            <Clock className="w-8 h-8 md:w-10 md:h-10 text-primary animate-float" style={{ animationDelay: "0.5s" }} />
+          </div>
+          <div className="w-32 h-px gold-gradient mx-auto rounded-full mb-4" />
+          <p className="font-body text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto">
+            {isExpired
+              ? "¡El evento ya ha comenzado!"
+              : "El gran día se acerca, no te lo pierdas"}
+          </p>
+        </div>
+
+        {/* Contador principal */}
+        {!isExpired ? (
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-8 lg:gap-12">
+            <CountdownCard value={timeLeft.days} label="Días" delay="100ms" />
+            <CountdownCard value={timeLeft.hours} label="Horas" delay="200ms" />
+            <CountdownCard value={timeLeft.minutes} label="Minutos" delay="300ms" />
+            <CountdownCard value={timeLeft.seconds} label="Segundos" delay="400ms" />
+          </div>
+        ) : (
+          <div
+            className={`text-center transition-all duration-700 ${
+              isInView ? "opacity-100 scale-100" : "opacity-0 scale-95"
+            }`}
+          >
+            <div className="inline-block p-12 rounded-3xl bg-card border-2 border-primary shadow-gold">
+              <h3 className="font-display text-3xl md:text-4xl gold-text-gradient mb-4">
+                ¡El Evento ha Comenzado!
+              </h3>
+              <p className="font-body text-lg text-muted-foreground">
+                Esperamos verte allí
+              </p>
+            </div>
+          </div>
+        )}
+
+        {/* Fecha del evento destacada */}
+        <div
+          className={`mt-16 text-center transition-all duration-700 ${
+            isInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
+          }`}
+          style={{ transitionDelay: "500ms" }}
+        >
+          <div className="inline-block px-8 py-4 rounded-full bg-card/80 backdrop-blur-sm border border-primary/30 shadow-soft">
+            <p className="font-body text-sm md:text-base text-muted-foreground mb-1">
+              Fecha del Evento
+            </p>
+            <p className="font-display text-xl md:text-2xl text-primary font-semibold">
+              15 de Marzo, 2025 • 20:00 hrs
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+};
+
+export default CountdownSection;
+

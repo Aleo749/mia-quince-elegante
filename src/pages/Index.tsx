@@ -1,5 +1,6 @@
 import { useRef } from "react";
 import HeroSection from "@/components/invitation/HeroSection";
+import CountdownSection from "@/components/invitation/CountdownSection";
 import MessageSection from "@/components/invitation/MessageSection";
 import GallerySection from "@/components/invitation/GallerySection";
 import EventDetailsSection from "@/components/invitation/EventDetailsSection";
@@ -19,6 +20,7 @@ const Index = () => {
   return (
     <main className="min-h-screen bg-background">
       <HeroSection onScrollToRSVP={scrollToRSVP} />
+      <CountdownSection />
       <MessageSection />
       <GallerySection />
       <EventDetailsSection />
