@@ -1,4 +1,4 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import { Sparkles, Play, Pause, Music } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
@@ -10,14 +10,113 @@ const HeroSection = ({ onScrollToRSVP }: HeroSectionProps) => {
   const [isPlaying, setIsPlaying] = useState(false);
   const audioRef = useRef<HTMLAudioElement>(null);
 
+  // Reproducir automáticamente: estrategia de iniciar silenciado y luego desmutear
+  useEffect(() => {
+    const audio = audioRef.current;
+    if (!audio) return;
+
+    // Iniciar silenciado para permitir autoplay (los navegadores permiten autoplay si está silenciado)
+    audio.muted = true;
+    audio.volume = 1.0;
+
+    const startPlayback = async () => {
+      try {
+        // Intentar reproducir (estará silenciado inicialmente)
+        await audio.play();
+        setIsPlaying(true);
+        
+        // Desmutear después de un breve momento una vez que está reproduciendo
+        setTimeout(() => {
+          audio.muted = false;
+        }, 200);
+      } catch (error) {
+        // Si aún falla, intentar con interacción del usuario
+        console.log("Autoplay bloqueado, se intentará con interacción del usuario");
+      }
+    };
+
+    // Intentar reproducir cuando el audio esté listo
+    const handleCanPlay = () => {
+      startPlayback();
+    };
+
+    const handleLoadedData = () => {
+      startPlayback();
+    };
+
+    // Si el audio ya está listo, empezar inmediatamente
+    if (audio.readyState >= 2) {
+      startPlayback();
+    } else {
+      audio.addEventListener('canplaythrough', handleCanPlay, { once: true });
+      audio.addEventListener('loadeddata', handleLoadedData, { once: true });
+    }
+
+    // Fallback: intentar después de un delay
+    const fallbackTimer = setTimeout(() => {
+      if (audio.paused) {
+        startPlayback();
+      }
+    }, 500);
+
+    // Si el usuario interactúa y el audio no está reproduciéndose, iniciarlo
+    const handleUserInteraction = async () => {
+      if (audio.paused) {
+        audio.muted = false; // Asegurar que no esté silenciado
+        try {
+          await audio.play();
+          setIsPlaying(true);
+        } catch (error) {
+          console.error("Error al reproducir audio:", error);
+        }
+      } else if (audio.muted) {
+        // Si está reproduciéndose pero silenciado, desmutear
+        audio.muted = false;
+      }
+    };
+
+    // Escuchar eventos de interacción del usuario
+    const events = ['click', 'touchstart', 'scroll', 'keydown'];
+    events.forEach(event => {
+      window.addEventListener(event, handleUserInteraction, { once: true });
+    });
+
+    return () => {
+      clearTimeout(fallbackTimer);
+      audio.removeEventListener('canplaythrough', handleCanPlay);
+      audio.removeEventListener('loadeddata', handleLoadedData);
+      events.forEach(event => {
+        window.removeEventListener(event, handleUserInteraction);
+      });
+    };
+  }, []);
+
+  // Sincronizar el estado con los eventos del audio
+  useEffect(() => {
+    const audio = audioRef.current;
+    if (!audio) return;
+
+    const handlePlay = () => setIsPlaying(true);
+    const handlePause = () => setIsPlaying(false);
+
+    audio.addEventListener('play', handlePlay);
+    audio.addEventListener('pause', handlePause);
+
+    return () => {
+      audio.removeEventListener('play', handlePlay);
+      audio.removeEventListener('pause', handlePause);
+    };
+  }, []);
+
   const toggleMusic = () => {
     if (audioRef.current) {
       if (isPlaying) {
         audioRef.current.pause();
       } else {
-        audioRef.current.play();
+        audioRef.current.play().catch((error) => {
+          console.error("Error al reproducir audio:", error);
+        });
       }
-      setIsPlaying(!isPlaying);
     }
   };
 
@@ -26,9 +125,12 @@ const HeroSection = ({ onScrollToRSVP }: HeroSectionProps) => {
       {/* Background audio */}
       <audio 
         ref={audioRef} 
-        src="/audio/siempre-brillaras.mp3" 
+        src="/TINI - Siempre Brillarás (Acústico (Audio Only)).mp3" 
         loop 
         preload="auto"
+        autoPlay
+        playsInline
+        muted
       />
 
       {/* Background decorations */}

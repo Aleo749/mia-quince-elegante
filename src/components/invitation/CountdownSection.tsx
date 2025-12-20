@@ -19,13 +19,15 @@ const CountdownSection = () => {
   });
   const [isExpired, setIsExpired] = useState(false);
 
-  // Fecha del evento: 15 de marzo de 2025 a las 20:00 hrs
-  const eventDate = new Date("2025-03-15T20:00:00");
-
   useEffect(() => {
+    // Fecha del evento: 15 de marzo de 2025 a las 20:00 hrs (hora local)
+    // Mes 2 = marzo (0-indexed en JavaScript)
+    const finalEventDate = new Date(2025, 2, 15, 20, 0, 0);
+
     const calculateTimeLeft = () => {
       const now = new Date().getTime();
-      const distance = eventDate.getTime() - now;
+      const eventTime = finalEventDate.getTime();
+      const distance = eventTime - now;
 
       if (distance < 0) {
         setIsExpired(true);
@@ -37,16 +39,20 @@ const CountdownSection = () => {
         };
       }
 
-      return {
+      setIsExpired(false);
+      const calculated = {
         days: Math.floor(distance / (1000 * 60 * 60 * 24)),
         hours: Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)),
         minutes: Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60)),
         seconds: Math.floor((distance % (1000 * 60)) / 1000),
       };
+      
+      return calculated;
     };
 
     // Calcular inmediatamente
-    setTimeLeft(calculateTimeLeft());
+    const initialTime = calculateTimeLeft();
+    setTimeLeft(initialTime);
 
     // Actualizar cada segundo
     const timer = setInterval(() => {
@@ -87,7 +93,7 @@ const CountdownSection = () => {
     return (
       <div
         className={`relative flex flex-col items-center justify-center transition-all duration-1000 ${
-          isInView ? "opacity-100 translate-y-0 scale-100" : "opacity-0 translate-y-20 scale-95"
+          isInView ? "opacity-100 translate-y-0 scale-100" : "opacity-100 translate-y-0 scale-100"
         }`}
         style={{ transitionDelay: delay }}
       >
@@ -223,11 +229,13 @@ const CountdownSection = () => {
           <p className="font-display text-3xl sm:text-4xl md:text-5xl lg:text-6xl text-primary mb-6 gold-text-gradient">
             Falta poco para vivir un día mágico:
           </p>
+          {/* Línea decorativa dorada */}
+          <div className="w-32 h-px gold-gradient mx-auto rounded-full" />
         </div>
 
         {/* Contador principal con estilo mágico Disney */}
         {!isExpired ? (
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4 md:gap-6 lg:gap-8 px-2 sm:px-4">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4 md:gap-6 lg:gap-8 px-2 sm:px-4 min-h-[300px]">
             <CountdownCard value={timeLeft.days} label="Días" delay="100ms" />
             <CountdownCard value={timeLeft.hours} label="Horas" delay="200ms" />
             <CountdownCard value={timeLeft.minutes} label="Minutos" delay="300ms" />
