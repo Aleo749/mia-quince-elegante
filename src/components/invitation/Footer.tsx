@@ -15,14 +15,14 @@ const Footer = () => {
         <p className="font-display text-2xl text-primary mb-4">
           ¡Te esperamos!
         </p>
-        
+
         <p className="font-body text-muted-foreground text-sm mb-6">
           Con amor y emoción
         </p>
 
         {/* Signature */}
         <p className="font-display text-3xl gold-text-gradient mb-8">
-          Mia Valentina
+          Mia Fioquetti
         </p>
 
         {/* Copyright */}

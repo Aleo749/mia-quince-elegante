@@ -89,7 +89,7 @@ const Admin = () => {
         variant: "destructive",
       });
     } else {
-      setGuests(guests.map(g => 
+      setGuests(guests.map(g =>
         g.id === guestId ? { ...g, table_number: tableNumber } : g
       ));
       setEditingTable(null);
@@ -148,7 +148,7 @@ const Admin = () => {
               Panel de Administración
             </h1>
             <p className="text-muted-foreground font-body">
-              XV Años de Mia Valentina
+              XV Años de Mia Fioquetti
             </p>
           </div>
           <Button
