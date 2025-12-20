@@ -125,38 +125,34 @@ const CountdownSection = () => {
             
             {/* Contenido */}
             <div className="relative h-full flex flex-col items-center justify-center p-4 md:p-6">
-              {/* Valor numérico con efecto de flip */}
-              <div className="relative perspective-1000">
-                <div className={`relative transform-style-preserve-3d transition-transform duration-500 ${
-                  isAnimating ? "rotate-x-180" : "rotate-x-0"
-                }`}>
-                  {/* Cara frontal */}
-                  <div className="backface-hidden">
-                    <span
-                      className={`block font-display text-7xl sm:text-8xl md:text-9xl lg:text-[10rem] font-bold gold-text-gradient leading-none transition-all duration-500 ${
-                        isAnimating ? "scale-110" : "scale-100"
-                      }`}
-                      style={{ fontSize: 'clamp(3.5rem, 12vw, 10rem)' }}
-                    >
-                      {String(displayValue).padStart(2, "0")}
-                    </span>
-                  </div>
-                  
-                  {/* Cara trasera (durante el flip) */}
-                  <div className="absolute inset-0 backface-hidden rotate-x-180">
-                    <span
-                      className="block font-display text-7xl sm:text-8xl md:text-9xl lg:text-[10rem] font-bold gold-text-gradient leading-none opacity-50"
-                      style={{ fontSize: 'clamp(3.5rem, 12vw, 10rem)' }}
-                    >
-                      {String(prevValue).padStart(2, "0")}
-                    </span>
-                  </div>
-                </div>
+              {/* Valor numérico con efecto mágico */}
+              <div className="relative">
+                {/* Número anterior (desvaneciéndose) */}
+                {isAnimating && (
+                  <span
+                    className="absolute inset-0 flex items-center justify-center font-display text-7xl sm:text-8xl md:text-9xl lg:text-[10rem] font-bold gold-text-gradient leading-none opacity-0 animate-fade-out"
+                    style={{ fontSize: 'clamp(3.5rem, 12vw, 10rem)' }}
+                  >
+                    {String(prevValue).padStart(2, "0")}
+                  </span>
+                )}
+                
+                {/* Número actual (apareciendo) */}
+                <span
+                  className={`block font-display text-7xl sm:text-8xl md:text-9xl lg:text-[10rem] font-bold gold-text-gradient leading-none transition-all duration-500 ${
+                    isAnimating ? "scale-125 opacity-100 animate-bounce-subtle" : "scale-100 opacity-100"
+                  }`}
+                  style={{ fontSize: 'clamp(3.5rem, 12vw, 10rem)' }}
+                >
+                  {String(displayValue).padStart(2, "0")}
+                </span>
                 
                 {/* Efecto de resplandor mágico en el número */}
                 <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
                   <span 
-                    className="font-display font-bold text-primary/25 blur-md leading-none animate-pulse"
+                    className={`font-display font-bold text-primary/25 blur-md leading-none transition-opacity duration-500 ${
+                      isAnimating ? "opacity-50 animate-pulse" : "opacity-30"
+                    }`}
                     style={{ fontSize: 'clamp(3.5rem, 12vw, 10rem)' }}
                   >
                     {String(displayValue).padStart(2, "0")}
@@ -218,34 +214,24 @@ const CountdownSection = () => {
       <div className="absolute bottom-1/4 left-0 w-full h-px gold-gradient opacity-20 animate-pulse" style={{ animationDelay: "1s" }} />
 
       <div className="max-w-7xl mx-auto">
-        {/* Título de la sección */}
+        {/* Texto mágico principal */}
         <div
-          className={`text-center mb-16 transition-all duration-700 ${
+          className={`text-center mb-12 md:mb-16 transition-all duration-1000 ${
             isInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
           }`}
         >
-          <div className="inline-flex items-center gap-3 mb-6">
-            <Clock className="w-8 h-8 md:w-10 md:h-10 text-primary animate-float" />
-            <h2 className="font-display text-4xl md:text-5xl lg:text-6xl text-primary">
-              Cuenta Regresiva
-            </h2>
-            <Clock className="w-8 h-8 md:w-10 md:h-10 text-primary animate-float" style={{ animationDelay: "0.5s" }} />
-          </div>
-          <div className="w-32 h-px gold-gradient mx-auto rounded-full mb-4" />
-          <p className="font-body text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto">
-            {isExpired
-              ? "¡El evento ya ha comenzado!"
-              : "El gran día se acerca, no te lo pierdas"}
+          <p className="font-display text-3xl sm:text-4xl md:text-5xl lg:text-6xl text-primary mb-6 gold-text-gradient">
+            Falta poco para vivir un día mágico:
           </p>
         </div>
 
-        {/* Contador principal */}
+        {/* Contador principal con estilo mágico Disney */}
         {!isExpired ? (
           <div className="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4 md:gap-6 lg:gap-8 px-2 sm:px-4">
             <CountdownCard value={timeLeft.days} label="Días" delay="100ms" />
             <CountdownCard value={timeLeft.hours} label="Horas" delay="200ms" />
             <CountdownCard value={timeLeft.minutes} label="Minutos" delay="300ms" />
-            <CountdownCard value={timeLeft.seconds} label="Segundos" delay="400ms" />
+            <CountdownCard value={timeLeft.seconds} label="Segundos" delay="400ms" isSeconds={true} />
           </div>
         ) : (
           <div
@@ -264,22 +250,6 @@ const CountdownSection = () => {
           </div>
         )}
 
-        {/* Fecha del evento destacada */}
-        <div
-          className={`mt-16 text-center transition-all duration-700 ${
-            isInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
-          }`}
-          style={{ transitionDelay: "500ms" }}
-        >
-          <div className="inline-block px-8 py-4 rounded-full bg-card/80 backdrop-blur-sm border border-primary/30 shadow-soft">
-            <p className="font-body text-sm md:text-base text-muted-foreground mb-1">
-              Fecha del Evento
-            </p>
-            <p className="font-display text-xl md:text-2xl text-primary font-semibold">
-              15 de Marzo, 2025 • 20:00 hrs
-            </p>
-          </div>
-        </div>
       </div>
     </section>
   );
