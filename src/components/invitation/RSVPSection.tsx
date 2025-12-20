@@ -11,7 +11,7 @@ import { Separator } from "@/components/ui/separator";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
-import SectionBadge from "@/components/common/SectionBadge";
+
 
 interface Guest {
   id: string;
@@ -227,8 +227,7 @@ const RSVPSection = ({ rsvpRef }: RSVPSectionProps) => {
         ref={rsvpRef as React.RefObject<HTMLDivElement>}
         className="relative py-20 px-6"
       >
-        {/* Section Number */}
-        <SectionBadge number="05" />
+
 
         <div className="max-w-lg mx-auto text-center">
           <div className="w-20 h-20 rounded-full gold-gradient flex items-center justify-center mx-auto mb-6 animate-scale-in shadow-gold">
@@ -253,8 +252,7 @@ const RSVPSection = ({ rsvpRef }: RSVPSectionProps) => {
       }}
       className="relative section-padding-y section-padding"
     >
-      {/* Section Number */}
-      <SectionBadge number="05" />
+
 
       <div className="max-w-2xl mx-auto">
         <div className={`text-center mb-12 transition-all duration-700 ${isInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>

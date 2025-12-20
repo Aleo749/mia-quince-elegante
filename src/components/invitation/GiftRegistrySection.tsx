@@ -1,6 +1,6 @@
 import { useInView } from "@/hooks/useInView";
 import { Gift, CreditCard, Wallet } from "lucide-react";
-import SectionBadge from "@/components/common/SectionBadge";
+
 
 const GiftRegistrySection = () => {
   const { ref, isInView } = useInView({ threshold: 0.3 });
