@@ -5,9 +5,9 @@ const MessageSection = () => {
   const { ref, isInView } = useInView({ threshold: 0.3 });
 
   return (
-    <section 
+    <section
       ref={ref}
-      className="relative py-20 px-6 flex flex-col items-center"
+      className="relative section-padding-y section-padding flex flex-col items-center"
     >
       {/* Section Number */}
       <span className="section-number">01</span>
@@ -16,7 +16,7 @@ const MessageSection = () => {
         <div className="w-14 h-14 rounded-full bg-card shadow-soft flex items-center justify-center mx-auto mb-6">
           <Heart className="w-7 h-7 text-primary" />
         </div>
-        
+
         <h2 className="font-display text-3xl md:text-4xl mb-6 text-primary">
           Un Momento Mágico
         </h2>
@@ -25,12 +25,12 @@ const MessageSection = () => {
 
         <div className="bg-card rounded-3xl p-8 shadow-soft-lg">
           <p className="font-body text-foreground/90 leading-relaxed mb-6">
-            Los quince años marcan el inicio de una nueva etapa en la vida de toda joven. 
+            Los quince años marcan el inicio de una nueva etapa en la vida de toda joven.
             Es un momento de transición, de sueños y de esperanzas.
           </p>
 
           <p className="font-body text-foreground/90 leading-relaxed mb-6">
-            Quiero compartir esta celebración tan importante contigo, 
+            Quiero compartir esta celebración tan importante contigo,
             rodeada de las personas que más quiero.
           </p>
 

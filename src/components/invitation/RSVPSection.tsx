@@ -53,7 +53,7 @@ const RSVPSection = ({ rsvpRef }: RSVPSectionProps) => {
   };
 
   const updateGuest = (id: string, field: keyof Guest, value: string | boolean) => {
-    setGuests(guests.map(g => 
+    setGuests(guests.map(g =>
       g.id === id ? { ...g, [field]: value } : g
     ));
   };
@@ -64,20 +64,20 @@ const RSVPSection = ({ rsvpRef }: RSVPSectionProps) => {
     if (value.length === 0) {
       return "";
     }
-    
+
     // Solo números enteros (no negativos)
     if (!/^\d+$/.test(value)) {
       return "Solo se permiten números";
     }
-    
+
     if (value.length < 8) {
       return "El número debe tener al menos 8 dígitos";
     }
-    
+
     if (value.length > 12) {
       return "El número no puede tener más de 12 dígitos";
     }
-    
+
     return "";
   };
 
@@ -92,26 +92,26 @@ const RSVPSection = ({ rsvpRef }: RSVPSectionProps) => {
     // Verificar que todos los invitados tengan nombre, apellido y WhatsApp válido
     return guests.every(g => {
       const hasName = g.firstName.trim() !== "" && g.lastName.trim() !== "";
-      const whatsappValid = g.whatsappNumber.length >= 8 && 
-                           g.whatsappNumber.length <= 12 && 
-                           /^\d+$/.test(g.whatsappNumber);
+      const whatsappValid = g.whatsappNumber.length >= 8 &&
+        g.whatsappNumber.length <= 12 &&
+        /^\d+$/.test(g.whatsappNumber);
       return hasName && whatsappValid;
     });
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    
+
     // Validar invitados
-    const invalidGuests = guests.filter(g => 
-      !g.firstName.trim() || 
-      !g.lastName.trim() || 
-      !g.whatsappNumber || 
-      g.whatsappNumber.length < 8 || 
-      g.whatsappNumber.length > 12 || 
+    const invalidGuests = guests.filter(g =>
+      !g.firstName.trim() ||
+      !g.lastName.trim() ||
+      !g.whatsappNumber ||
+      g.whatsappNumber.length < 8 ||
+      g.whatsappNumber.length > 12 ||
       !/^\d+$/.test(g.whatsappNumber)
     );
-    
+
     if (invalidGuests.length > 0) {
       toast({
         title: "Datos incompletos",
@@ -177,11 +177,11 @@ const RSVPSection = ({ rsvpRef }: RSVPSectionProps) => {
         hint: error?.hint,
         statusCode: error?.statusCode
       });
-      
+
       // Verificar si el error es por configuración faltante
       const SUPABASE_URL = import.meta.env.VITE_SUPABASE_URL;
       const SUPABASE_PUBLISHABLE_KEY = import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY;
-      
+
       if (!SUPABASE_URL || !SUPABASE_PUBLISHABLE_KEY) {
         toast({
           title: "Error de configuración",
@@ -222,7 +222,7 @@ const RSVPSection = ({ rsvpRef }: RSVPSectionProps) => {
 
   if (isSubmitted) {
     return (
-      <section 
+      <section
         ref={rsvpRef as React.RefObject<HTMLDivElement>}
         className="relative py-20 px-6"
       >
@@ -245,12 +245,12 @@ const RSVPSection = ({ rsvpRef }: RSVPSectionProps) => {
   }
 
   return (
-    <section 
+    <section
       ref={(el) => {
         (ref as React.MutableRefObject<HTMLElement | null>).current = el;
         (rsvpRef as React.MutableRefObject<HTMLElement | null>).current = el;
       }}
-      className="relative py-20 px-6"
+      className="relative section-padding-y section-padding"
     >
       {/* Section Number */}
       <span className="section-number">05</span>
@@ -269,18 +269,17 @@ const RSVPSection = ({ rsvpRef }: RSVPSectionProps) => {
           </p>
         </div>
 
-        <form 
+        <form
           onSubmit={handleSubmit}
-          className={`transition-all duration-700 ${
-            isInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
-          }`}
+          className={`transition-all duration-700 ${isInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
+            }`}
           style={{ transitionDelay: '200ms' }}
         >
           <div className="space-y-6">
             {guests.map((guest, index) => (
-              <Card 
+              <Card
                 key={guest.id}
-                className="group relative overflow-hidden border-2 border-primary/20 shadow-soft-lg hover:shadow-soft-xl transition-all duration-500 hover:border-primary/40 bg-gradient-to-br from-card via-secondary/20 to-card"
+                className="group relative overflow-hidden border-2 border-primary/20 shadow-soft-lg hover:shadow-soft-xl transition-all duration-500 hover:border-primary/40 bg-gradient-to-br from-card via-secondary/20 to-card p-6 sm:p-8"
                 style={{
                   animation: `fadeInUp 0.6s ease-out ${index * 0.1}s both`
                 }}
@@ -301,8 +300,8 @@ const RSVPSection = ({ rsvpRef }: RSVPSectionProps) => {
                       <div className="flex-1">
                         <div className="flex items-center gap-2 mb-1">
                           <CardTitle className="font-display text-2xl text-foreground">
-                            {guest.firstName || guest.lastName 
-                              ? `${guest.firstName} ${guest.lastName}`.trim() 
+                            {guest.firstName || guest.lastName
+                              ? `${guest.firstName} ${guest.lastName}`.trim()
                               : `Invitado ${index + 1}`
                             }
                           </CardTitle>
@@ -319,8 +318,8 @@ const RSVPSection = ({ rsvpRef }: RSVPSectionProps) => {
                           )}
                         </div>
                         <CardDescription className="font-body">
-                          {guest.firstName || guest.lastName 
-                            ? 'Completa los datos del invitado' 
+                          {guest.firstName || guest.lastName
+                            ? 'Completa los datos del invitado'
                             : 'Nuevo invitado - Completa los datos'
                           }
                         </CardDescription>
@@ -356,7 +355,7 @@ const RSVPSection = ({ rsvpRef }: RSVPSectionProps) => {
                           value={guest.firstName}
                           onChange={(e) => updateGuest(guest.id, "firstName", e.target.value)}
                           placeholder="Ingresa el nombre"
-                          className="h-11 border-2 transition-all duration-300 focus:border-primary/50 focus:ring-2 focus:ring-primary/20"
+                          className="h-12 md:h-11 border-2 transition-all duration-300 focus:border-primary/50 focus:ring-2 focus:ring-primary/20 focus-visible-ring"
                         />
                         {guest.firstName && (
                           <div className="absolute right-3 top-1/2 -translate-y-1/2">
@@ -377,7 +376,7 @@ const RSVPSection = ({ rsvpRef }: RSVPSectionProps) => {
                           value={guest.lastName}
                           onChange={(e) => updateGuest(guest.id, "lastName", e.target.value)}
                           placeholder="Ingresa el apellido"
-                          className="h-11 border-2 transition-all duration-300 focus:border-primary/50 focus:ring-2 focus:ring-primary/20"
+                          className="h-12 md:h-11 border-2 transition-all duration-300 focus:border-primary/50 focus:ring-2 focus:ring-primary/20 focus-visible-ring"
                         />
                         {guest.lastName && (
                           <div className="absolute right-3 top-1/2 -translate-y-1/2">
@@ -407,9 +406,8 @@ const RSVPSection = ({ rsvpRef }: RSVPSectionProps) => {
                         placeholder="2617216100"
                         maxLength={12}
                         required
-                        className={`h-11 border-2 pl-4 pr-12 transition-all duration-300 focus:border-primary/50 focus:ring-2 focus:ring-primary/20 ${
-                          validateWhatsApp(guest.whatsappNumber) ? 'border-destructive/50' : ''
-                        }`}
+                        className={`h-12 md:h-11 border-2 pl-4 pr-12 transition-all duration-300 focus:border-primary/50 focus:ring-2 focus:ring-primary/20 focus-visible-ring ${validateWhatsApp(guest.whatsappNumber) ? 'border-destructive/50' : ''
+                          }`}
                       />
                       {!validateWhatsApp(guest.whatsappNumber) && guest.whatsappNumber.length >= 8 && (
                         <div className="absolute right-3 top-1/2 -translate-y-1/2">
@@ -450,17 +448,15 @@ const RSVPSection = ({ rsvpRef }: RSVPSectionProps) => {
 
                 <CardFooter className="flex items-center justify-between pt-6">
                   <div className="flex items-center gap-3">
-                    <Heart className={`w-5 h-5 transition-all duration-300 ${
-                      guest.attending ? 'text-primary fill-primary' : 'text-muted-foreground'
-                    }`} />
+                    <Heart className={`w-5 h-5 transition-all duration-300 ${guest.attending ? 'text-primary fill-primary' : 'text-muted-foreground'
+                      }`} />
                     <Label htmlFor={`attending-${guest.id}`} className="text-foreground font-body font-medium cursor-pointer">
                       ¿Asistirás a la celebración?
                     </Label>
                   </div>
                   <div className="flex items-center gap-3">
-                    <span className={`text-sm font-body transition-all duration-300 ${
-                      !guest.attending ? 'text-primary font-semibold' : 'text-muted-foreground'
-                    }`}>
+                    <span className={`text-sm font-body transition-all duration-300 ${!guest.attending ? 'text-primary font-semibold' : 'text-muted-foreground'
+                      }`}>
                       No
                     </span>
                     <Switch
@@ -469,9 +465,8 @@ const RSVPSection = ({ rsvpRef }: RSVPSectionProps) => {
                       onCheckedChange={(checked) => updateGuest(guest.id, "attending", checked)}
                       className="data-[state=checked]:bg-primary"
                     />
-                    <span className={`text-sm font-body transition-all duration-300 ${
-                      guest.attending ? 'text-primary font-semibold' : 'text-muted-foreground'
-                    }`}>
+                    <span className={`text-sm font-body transition-all duration-300 ${guest.attending ? 'text-primary font-semibold' : 'text-muted-foreground'
+                      }`}>
                       Sí
                     </span>
                   </div>
@@ -491,9 +486,8 @@ const RSVPSection = ({ rsvpRef }: RSVPSectionProps) => {
                 className="group h-auto p-0 hover:bg-transparent"
               >
                 <div className="flex flex-col items-center gap-3">
-                  <div className={`w-16 h-16 rounded-full gold-gradient flex items-center justify-center shadow-gold transition-all duration-300 ${
-                    addingGuest ? 'animate-spin' : 'group-hover:scale-110 group-hover:rotate-90'
-                  }`}>
+                  <div className={`w-16 h-16 rounded-full gold-gradient flex items-center justify-center shadow-gold transition-all duration-300 ${addingGuest ? 'animate-spin' : 'group-hover:scale-110 group-hover:rotate-90'
+                    }`}>
                     {addingGuest ? (
                       <div className="w-6 h-6 border-2 border-primary-foreground border-t-transparent rounded-full" />
                     ) : (
@@ -520,7 +514,7 @@ const RSVPSection = ({ rsvpRef }: RSVPSectionProps) => {
             <Button
               type="submit"
               disabled={isSubmitting || !isFormValid()}
-              className="w-full gold-gradient text-primary-foreground font-medium rounded-full shadow-gold hover:shadow-soft-lg transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+              className="w-full gold-gradient text-primary-foreground font-medium rounded-full shadow-gold hover:shadow-soft-lg transition-all disabled:opacity-50 disabled:cursor-not-allowed touch-target-lg focus-visible-ring"
             >
               {isSubmitting ? (
                 "Enviando..."

@@ -31,18 +31,20 @@ const Index = () => {
   return (
     <>
       {showWelcome && <WelcomeModal onEnter={handleEnter} />}
-      <main className="min-h-screen bg-background">
-        <HeroSection onScrollToRSVP={scrollToRSVP} />
-        <CountdownSection />
-        <MessageSection />
-        <GallerySection />
-        <EventDetailsSection />
-        <DressCodeSection />
-        <RSVPSection rsvpRef={rsvpRef} />
-        <GiftRegistrySection />
-        <ContactSection />
-        <Footer />
-      </main>
+      {!showWelcome && (
+        <main className="min-h-screen bg-background">
+          <HeroSection onScrollToRSVP={scrollToRSVP} />
+          <CountdownSection />
+          <MessageSection />
+          <GallerySection />
+          <EventDetailsSection />
+          <DressCodeSection />
+          <RSVPSection rsvpRef={rsvpRef} />
+          <GiftRegistrySection />
+          <ContactSection />
+          <Footer />
+        </main>
+      )}
     </>
   );
 };

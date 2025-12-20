@@ -6,9 +6,9 @@ const ContactSection = () => {
   const { ref, isInView } = useInView({ threshold: 0.3 });
 
   return (
-    <section 
+    <section
       ref={ref}
-      className="relative py-20 px-6"
+      className="relative section-padding-y section-padding"
     >
       {/* Section Number */}
       <span className="section-number">07</span>
@@ -24,10 +24,9 @@ const ContactSection = () => {
           <div className="w-24 h-px gold-gradient mx-auto mb-8 rounded-full" />
         </div>
 
-        <div 
-          className={`bg-card border border-border rounded-3xl p-8 shadow-soft-lg transition-all duration-700 ${
-            isInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
-          }`}
+        <div
+          className={`bg-card border border-border rounded-3xl p-8 shadow-soft-lg transition-all duration-700 ${isInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
+            }`}
           style={{ transitionDelay: '200ms' }}
         >
           <p className="font-body text-foreground/80 mb-6">
@@ -48,7 +47,7 @@ const ContactSection = () => {
           <div className="mt-8 flex flex-col sm:flex-row gap-4 justify-center">
             <Button
               variant="outline"
-              className="border-green-500/30 text-green-600 hover:bg-green-500/5 rounded-full"
+              className="border-green-500/30 text-green-600 hover:bg-green-500/5 rounded-full touch-target focus-visible-ring"
               onClick={() => window.open("https://wa.me/5491112345678", "_blank")}
             >
               <MessageCircle className="w-4 h-4 mr-2" />
@@ -56,7 +55,7 @@ const ContactSection = () => {
             </Button>
             <Button
               variant="outline"
-              className="border-green-500/30 text-green-600 hover:bg-green-500/5 rounded-full"
+              className="border-green-500/30 text-green-600 hover:bg-green-500/5 rounded-full touch-target focus-visible-ring"
               onClick={() => window.open("https://wa.me/5491187654321", "_blank")}
             >
               <MessageCircle className="w-4 h-4 mr-2" />

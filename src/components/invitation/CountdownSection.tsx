@@ -59,8 +59,8 @@ const CountdownSection = () => {
   }, []);
 
   const CountdownItem = ({ value, label }: { value: number; label: string }) => (
-    <div className="flex flex-col items-center mx-2 sm:mx-4 md:mx-8">
-      <span className="text-4xl sm:text-6xl md:text-8xl font-bold font-display text-primary tracking-tighter mb-2">
+    <div className="flex flex-col items-center mx-2 sm:mx-4 md:mx-6 lg:mx-8">
+      <span className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold font-display text-primary tracking-tighter mb-2">
         {value}
       </span>
       <span className="text-xs sm:text-sm md:text-base uppercase tracking-widest text-muted-foreground font-light">
@@ -72,7 +72,7 @@ const CountdownSection = () => {
   return (
     <section
       ref={ref}
-      className="relative py-20 md:py-32 px-6 overflow-hidden bg-background"
+      className="relative section-padding-y section-padding overflow-hidden bg-background"
     >
       <div
         className={`max-w-7xl mx-auto text-center transition-all duration-1000 transform ${isInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
@@ -80,11 +80,11 @@ const CountdownSection = () => {
       >
         {!isExpired ? (
           <>
-            <h2 className="text-2xl md:text-4xl lg:text-5xl font-display uppercase tracking-widest mb-12 sm:mb-16 md:mb-24 text-foreground/80">
+            <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-display uppercase tracking-widest mb-12 sm:mb-16 md:mb-20 lg:mb-24 text-foreground/80 px-4">
               Falta poco para vivir un día mágico
             </h2>
 
-            <div className="flex flex-wrap justify-center items-center">
+            <div className="flex flex-wrap justify-center items-center gap-y-6">
               <CountdownItem value={timeLeft.days} label="Días" />
               <CountdownItem value={timeLeft.hours} label="Horas" />
               <CountdownItem value={timeLeft.minutes} label="Minutos" />
@@ -92,8 +92,8 @@ const CountdownSection = () => {
             </div>
           </>
         ) : (
-          <div className="flex flex-col items-center justify-center animate-fade-in">
-            <h2 className="text-3xl md:text-5xl lg:text-6xl font-display uppercase tracking-widest mb-6 text-primary">
+          <div className="flex flex-col items-center justify-center animate-fade-in px-4">
+            <h2 className="text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-display uppercase tracking-widest mb-6 text-primary">
               ¡El Evento ha Comenzado!
             </h2>
             <p className="text-lg md:text-xl text-muted-foreground font-light tracking-wide">

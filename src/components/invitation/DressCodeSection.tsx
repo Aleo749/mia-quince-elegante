@@ -5,9 +5,9 @@ const DressCodeSection = () => {
   const { ref, isInView } = useInView({ threshold: 0.3 });
 
   return (
-    <section 
+    <section
       ref={ref}
-      className="relative py-20 px-6 bg-secondary/50"
+      className="relative section-padding-y section-padding bg-secondary/50"
     >
       {/* Section Number */}
       <span className="section-number">04</span>
@@ -23,15 +23,14 @@ const DressCodeSection = () => {
           <div className="w-24 h-px gold-gradient mx-auto mb-8 rounded-full" />
         </div>
 
-        <div 
-          className={`bg-card border border-border rounded-3xl p-8 shadow-soft-lg transition-all duration-700 ${
-            isInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
-          }`}
+        <div
+          className={`bg-card border border-border rounded-3xl p-8 shadow-soft-lg transition-all duration-700 ${isInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
+            }`}
           style={{ transitionDelay: '200ms' }}
         >
           <p className="font-display text-2xl text-primary mb-4">Elegante / Formal</p>
           <p className="font-body text-foreground/80 leading-relaxed mb-6">
-            Te invitamos a vestir de manera elegante para esta ocasión especial. 
+            Te invitamos a vestir de manera elegante para esta ocasión especial.
             Queremos que todos brillemos en esta noche mágica.
           </p>
 

@@ -83,15 +83,22 @@ export const AudioProvider = ({ children }: { children: React.ReactNode }) => {
         };
     }, []);
 
+
     const play = React.useCallback(async () => {
         if (audioRef.current) {
             try {
+                // Unmute if it's muted (in case of explicit play call)
+                if (audioRef.current.muted) {
+                    audioRef.current.muted = false;
+                    audioRef.current.volume = 1.0;
+                }
                 await audioRef.current.play();
             } catch (error) {
                 console.error("Playback failed:", error);
             }
         }
     }, []);
+
 
     const pause = React.useCallback(() => {
         if (audioRef.current) {

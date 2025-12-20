@@ -60,7 +60,7 @@ const GallerySection = () => {
   return (
     <section
       ref={ref}
-      className="relative py-20 px-6 bg-secondary/50"
+      className="relative section-padding-y section-padding bg-secondary/50"
     >
       {/* Section Number */}
       <span className="section-number">03</span>
@@ -130,14 +130,14 @@ const GallerySection = () => {
             {/* Enhanced Carousel Controls - Always Visible */}
             <button
               onClick={handlePrev}
-              className="absolute left-3 md:left-6 top-1/2 -translate-y-1/2 w-12 h-12 md:w-14 md:h-14 rounded-full bg-white/90 backdrop-blur-md hover:bg-white hover:scale-110 active:scale-95 flex items-center justify-center transition-all duration-300 shadow-xl z-20 group/btn"
+              className="absolute left-3 md:left-6 top-1/2 -translate-y-1/2 w-14 h-14 md:w-16 md:h-16 rounded-full bg-white/90 backdrop-blur-md hover:bg-white hover:scale-110 active:scale-95 flex items-center justify-center transition-all duration-300 shadow-xl z-20 group/btn focus-visible-ring"
               aria-label="Imagen anterior"
             >
               <ChevronLeft className="w-6 h-6 md:w-7 md:h-7 text-primary group-hover/btn:text-accent transition-colors" />
             </button>
             <button
               onClick={handleNext}
-              className="absolute right-3 md:right-6 top-1/2 -translate-y-1/2 w-12 h-12 md:w-14 md:h-14 rounded-full bg-white/90 backdrop-blur-md hover:bg-white hover:scale-110 active:scale-95 flex items-center justify-center transition-all duration-300 shadow-xl z-20 group/btn"
+              className="absolute right-3 md:right-6 top-1/2 -translate-y-1/2 w-14 h-14 md:w-16 md:h-16 rounded-full bg-white/90 backdrop-blur-md hover:bg-white hover:scale-110 active:scale-95 flex items-center justify-center transition-all duration-300 shadow-xl z-20 group/btn focus-visible-ring"
               aria-label="Siguiente imagen"
             >
               <ChevronRight className="w-6 h-6 md:w-7 md:h-7 text-primary group-hover/btn:text-accent transition-colors" />
@@ -162,8 +162,8 @@ const GallerySection = () => {
                     }}
                     aria-label={`Ir a imagen ${index + 1}`}
                     className={`rounded-full transition-all duration-500 ${index === currentIndex
-                        ? "w-10 h-2.5 bg-white shadow-lg"
-                        : "w-2.5 h-2.5 bg-white/60 hover:bg-white/90 hover:scale-125"
+                      ? "w-10 h-2.5 bg-white shadow-lg"
+                      : "w-2.5 h-2.5 bg-white/60 hover:bg-white/90 hover:scale-125"
                       }`}
                   />
                 ))}

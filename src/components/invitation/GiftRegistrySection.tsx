@@ -5,9 +5,9 @@ const GiftRegistrySection = () => {
   const { ref, isInView } = useInView({ threshold: 0.3 });
 
   return (
-    <section 
+    <section
       ref={ref}
-      className="relative py-20 px-6 bg-secondary/50"
+      className="relative section-padding-y section-padding bg-secondary/50"
     >
       {/* Section Number */}
       <span className="section-number">06</span>
@@ -28,10 +28,9 @@ const GiftRegistrySection = () => {
 
         <div className="grid md:grid-cols-2 gap-6">
           {/* Bank Transfer */}
-          <div 
-            className={`bg-card border border-border rounded-3xl p-8 text-center shadow-soft-lg transition-all duration-700 hover:shadow-gold ${
-              isInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
-            }`}
+          <div
+            className={`bg-card border border-border rounded-3xl p-8 text-center shadow-soft-lg transition-all duration-700 hover:shadow-gold ${isInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
+              }`}
             style={{ transitionDelay: '100ms' }}
           >
             <div className="w-14 h-14 rounded-2xl gold-gradient flex items-center justify-center mx-auto mb-4 shadow-gold">
@@ -46,10 +45,9 @@ const GiftRegistrySection = () => {
           </div>
 
           {/* Digital Wallet */}
-          <div 
-            className={`bg-card border border-border rounded-3xl p-8 text-center shadow-soft-lg transition-all duration-700 hover:shadow-gold ${
-              isInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
-            }`}
+          <div
+            className={`bg-card border border-border rounded-3xl p-8 text-center shadow-soft-lg transition-all duration-700 hover:shadow-gold ${isInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
+              }`}
             style={{ transitionDelay: '200ms' }}
           >
             <div className="w-14 h-14 rounded-2xl gold-gradient flex items-center justify-center mx-auto mb-4 shadow-gold">
@@ -60,7 +58,7 @@ const GiftRegistrySection = () => {
               <p className="text-muted-foreground">Mercado Pago</p>
               <p className="text-foreground font-medium">mia.valentina@email.com</p>
             </div>
-            
+
             {/* QR Placeholder */}
             <div className="mt-4 w-32 h-32 mx-auto bg-secondary/50 rounded-2xl flex items-center justify-center border border-border">
               <span className="text-muted-foreground text-xs">QR Code</span>
