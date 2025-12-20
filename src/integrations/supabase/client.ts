@@ -5,13 +5,45 @@ import type { Database } from './types';
 const SUPABASE_URL = import.meta.env.VITE_SUPABASE_URL;
 const SUPABASE_PUBLISHABLE_KEY = import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY;
 
+// Log de depuración en desarrollo
+if (import.meta.env.DEV) {
+  console.log('🔧 Configuración de Supabase:');
+  console.log('  URL:', SUPABASE_URL ? `${SUPABASE_URL.substring(0, 30)}...` : '❌ NO CONFIGURADA');
+  console.log('  Key:', SUPABASE_PUBLISHABLE_KEY ? `${SUPABASE_PUBLISHABLE_KEY.substring(0, 20)}...` : '❌ NO CONFIGURADA');
+}
+
+// Validar que las variables de entorno estén configuradas
+if (!SUPABASE_URL || !SUPABASE_PUBLISHABLE_KEY) {
+  const missingVars = [];
+  if (!SUPABASE_URL) missingVars.push('VITE_SUPABASE_URL');
+  if (!SUPABASE_PUBLISHABLE_KEY) missingVars.push('VITE_SUPABASE_PUBLISHABLE_KEY');
+  
+  console.error(
+    `❌ Error de configuración: Las siguientes variables de entorno no están configuradas:\n` +
+    `   ${missingVars.join(', ')}\n\n` +
+    `Por favor, crea un archivo .env.local en la raíz del proyecto con:\n` +
+    `   VITE_SUPABASE_URL=tu_url_supabase\n` +
+    `   VITE_SUPABASE_PUBLISHABLE_KEY=tu_clave_anonima\n\n` +
+    `⚠️ NOTA: Si usas un archivo .env (sin .local), asegúrate de que:\n` +
+    `   1. No tenga comillas alrededor de los valores\n` +
+    `   2. No tenga espacios antes o después del signo =\n` +
+    `   3. Reinicies el servidor de desarrollo después de modificarlo\n\n` +
+    `Puedes encontrar estas credenciales en tu proyecto de Supabase: ` +
+    `https://app.supabase.com/project/_/settings/api`
+  );
+}
+
 // Import the supabase client like this:
 // import { supabase } from "@/integrations/supabase/client";
 
-export const supabase = createClient<Database>(SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY, {
-  auth: {
-    storage: localStorage,
-    persistSession: true,
-    autoRefreshToken: true,
+export const supabase = createClient<Database>(
+  SUPABASE_URL || 'https://placeholder.supabase.co',
+  SUPABASE_PUBLISHABLE_KEY || 'placeholder-key',
+  {
+    auth: {
+      storage: localStorage,
+      persistSession: true,
+      autoRefreshToken: true,
+    }
   }
-});
+);

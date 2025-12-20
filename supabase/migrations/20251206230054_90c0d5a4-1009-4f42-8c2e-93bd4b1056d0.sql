@@ -19,15 +19,17 @@ CREATE TABLE public.rsvp_guests (
 ALTER TABLE public.rsvp_groups ENABLE ROW LEVEL SECURITY;
 ALTER TABLE public.rsvp_guests ENABLE ROW LEVEL SECURITY;
 
--- Create policies for public insert (anyone can submit RSVP)
+-- Create policies for public insert (anyone can submit RSVP, including anonymous users)
 CREATE POLICY "Anyone can create rsvp groups" 
 ON public.rsvp_groups 
 FOR INSERT 
+TO public
 WITH CHECK (true);
 
 CREATE POLICY "Anyone can create guests" 
 ON public.rsvp_guests 
 FOR INSERT 
+TO public
 WITH CHECK (true);
 
 -- Create policies for authenticated users to read all (admin panel)
@@ -48,7 +50,8 @@ CREATE POLICY "Authenticated users can update guests"
 ON public.rsvp_guests 
 FOR UPDATE 
 TO authenticated
-USING (true);
+USING (true)
+WITH CHECK (true);
 
 -- Create policy for authenticated users to delete
 CREATE POLICY "Authenticated users can delete groups" 

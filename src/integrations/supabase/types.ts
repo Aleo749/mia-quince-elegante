@@ -38,6 +38,7 @@ export type Database = {
           id: string
           last_name: string
           table_number: number | null
+          whatsapp_number: string | null
         }
         Insert: {
           attending?: boolean
@@ -47,6 +48,7 @@ export type Database = {
           id?: string
           last_name: string
           table_number?: number | null
+          whatsapp_number?: string | null
         }
         Update: {
           attending?: boolean
@@ -56,6 +58,7 @@ export type Database = {
           id?: string
           last_name?: string
           table_number?: number | null
+          whatsapp_number?: string | null
         }
         Relationships: [
           {

@@ -55,9 +55,10 @@ cd mia-quince-elegante
 npm install
 
 # 3. Configurar variables de entorno
-# Crear archivo .env.local con tus credenciales de Supabase
+# Crear archivo .env.local en la raíz del proyecto con tus credenciales de Supabase
+# Puedes encontrar estas credenciales en: https://app.supabase.com/project/_/settings/api
 # VITE_SUPABASE_URL=tu_url_supabase
-# VITE_SUPABASE_ANON_KEY=tu_clave_anonima
+# VITE_SUPABASE_PUBLISHABLE_KEY=tu_clave_anonima
 
 # 4. Iniciar el servidor de desarrollo
 npm run dev
@@ -134,10 +135,38 @@ El proyecto utiliza Supabase para:
 - Autenticación de administradores
 - Gestión de invitados
 
-Asegúrate de configurar:
-1. Un proyecto en Supabase
-2. Las tablas necesarias (ver migraciones en `supabase/migrations/`)
-3. Variables de entorno con tus credenciales
+### Pasos para configurar Supabase:
+
+1. **Crear un proyecto en Supabase**
+   - Ve a [Supabase](https://app.supabase.com) y crea un nuevo proyecto
+   - Espera a que se complete la configuración inicial
+
+2. **Ejecutar las migraciones**
+   - Las tablas necesarias están definidas en `supabase/migrations/`
+   - Puedes ejecutarlas desde el SQL Editor en el dashboard de Supabase
+   - O usar el CLI de Supabase: `supabase db push`
+
+3. **Obtener las credenciales**
+   - Ve a **Settings → API** en tu proyecto de Supabase
+   - Copia la **URL del proyecto** (Project URL)
+   - Copia la **clave anónima** (anon/public key)
+
+4. **Configurar variables de entorno**
+   - Crea un archivo `.env.local` en la raíz del proyecto
+   - Agrega las siguientes variables:
+   ```env
+   VITE_SUPABASE_URL=https://tu-proyecto.supabase.co
+   VITE_SUPABASE_PUBLISHABLE_KEY=tu_clave_anonima_aqui
+   ```
+   - ⚠️ **Importante**: Reinicia el servidor de desarrollo después de crear/modificar `.env.local`
+
+### Solución de problemas
+
+Si ves el error "Hubo un problema al enviar tu confirmación":
+- Verifica que el archivo `.env.local` existe y contiene las variables correctas
+- Asegúrate de haber reiniciado el servidor de desarrollo (`npm run dev`)
+- Revisa la consola del navegador para ver mensajes de error más detallados
+- Verifica que las credenciales sean correctas en el dashboard de Supabase
 
 ## 📱 Rutas Disponibles
 
