@@ -27,26 +27,10 @@ const DressCodeSection = () => {
             }`}
           style={{ transitionDelay: '200ms' }}
         >
-          <p className="font-display text-2xl text-primary mb-4">Elegante / Formal</p>
-          <p className="font-body text-foreground/80 leading-relaxed mb-6">
+          <p className="font-display text-2xl text-primary mb-4">Elegante sport</p>
+          <p className="font-body text-foreground/80 leading-relaxed">
             Te invitamos a vestir de manera elegante para esta ocasión especial.
             Queremos que todos brillemos en esta noche mágica.
-          </p>
-
-          <div className="flex flex-wrap justify-center gap-3">
-            <div className="px-5 py-2.5 rounded-full border border-primary/30 bg-primary/5 shadow-soft">
-              <span className="text-primary font-body text-sm font-medium">Vestido largo</span>
-            </div>
-            <div className="px-5 py-2.5 rounded-full border border-primary/30 bg-primary/5 shadow-soft">
-              <span className="text-primary font-body text-sm font-medium">Traje formal</span>
-            </div>
-            <div className="px-5 py-2.5 rounded-full border border-primary/30 bg-primary/5 shadow-soft">
-              <span className="text-primary font-body text-sm font-medium">Colores sobrios</span>
-            </div>
-          </div>
-
-          <p className="font-body text-muted-foreground text-sm mt-6">
-            * Evitar colores blanco y rosa (reservados para la quinceañera)
           </p>
         </div>
       </div>

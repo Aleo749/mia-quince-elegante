@@ -8,7 +8,11 @@ interface TimeLeft {
   seconds: number;
 }
 
-const CountdownSection = () => {
+interface CountdownSectionProps {
+  countdownRef?: React.RefObject<HTMLElement>;
+}
+
+const CountdownSection = ({ countdownRef }: CountdownSectionProps) => {
   const { ref, isInView } = useInView({ threshold: 0.2 });
   const [timeLeft, setTimeLeft] = useState<TimeLeft>({
     days: 0,
@@ -19,9 +23,9 @@ const CountdownSection = () => {
   const [isExpired, setIsExpired] = useState(false);
 
   useEffect(() => {
-    // Fecha del evento: 15 de marzo de 2025 a las 20:00 hrs (hora local)
-    // Mes 2 = marzo (0-indexed en JavaScript)
-    const finalEventDate = new Date(2026, 2, 15, 20, 0, 0);
+    // Fecha del evento: 7 de febrero de 2026 a las 20:30 hrs (hora local)
+    // Mes 1 = febrero (0-indexed en JavaScript)
+    const finalEventDate = new Date(2026, 1, 7, 20, 30, 0);
 
     const calculateTimeLeft = () => {
       const now = new Date().getTime();
@@ -69,9 +73,15 @@ const CountdownSection = () => {
     </div>
   );
 
+
   return (
     <section
-      ref={ref}
+      ref={(el) => {
+        (ref as React.MutableRefObject<HTMLElement | null>).current = el;
+        if (countdownRef) {
+          (countdownRef as React.MutableRefObject<HTMLElement | null>).current = el;
+        }
+      }}
       className="relative section-padding-y section-padding overflow-hidden bg-background"
     >
       <div
@@ -80,7 +90,7 @@ const CountdownSection = () => {
       >
         {!isExpired ? (
           <>
-            <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-display uppercase tracking-widest mb-12 sm:mb-16 md:mb-20 lg:mb-24 text-foreground/80 px-4">
+            <h2 className="font-display text-3xl md:text-4xl text-primary mb-12 px-4">
               Falta poco para vivir un día mágico
             </h2>
 

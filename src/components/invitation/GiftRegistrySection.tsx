@@ -1,9 +1,31 @@
+import { useState } from "react";
 import { useInView } from "@/hooks/useInView";
-import { Gift, CreditCard, Wallet } from "lucide-react";
-
+import { Gift, CreditCard, Wallet, Copy, Check } from "lucide-react";
+import SectionBadge from "@/components/common/SectionBadge";
+import { Button } from "@/components/ui/button";
 
 const GiftRegistrySection = () => {
   const { ref, isInView } = useInView({ threshold: 0.3 });
+  const [copiedCVU, setCopiedCVU] = useState(false);
+  const [copiedAlias, setCopiedAlias] = useState(false);
+
+  const CVU = "0000003100072830126087";
+  const ALIAS = "miafioquetti.mp";
+
+  const handleCopy = async (text: string, type: 'cvu' | 'alias') => {
+    try {
+      await navigator.clipboard.writeText(text);
+      if (type === 'cvu') {
+        setCopiedCVU(true);
+        setTimeout(() => setCopiedCVU(false), 2000);
+      } else {
+        setCopiedAlias(true);
+        setTimeout(() => setCopiedAlias(false), 2000);
+      }
+    } catch (err) {
+      console.error('Failed to copy:', err);
+    }
+  };
 
   return (
     <section
@@ -27,7 +49,7 @@ const GiftRegistrySection = () => {
         </div>
 
         <div className="grid md:grid-cols-2 gap-6">
-          {/* Bank Transfer */}
+          {/* CVU Card */}
           <div
             className={`bg-card border border-border rounded-3xl p-8 text-center shadow-soft-lg transition-all duration-700 hover:shadow-gold ${isInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
               }`}
@@ -37,13 +59,33 @@ const GiftRegistrySection = () => {
               <CreditCard className="w-7 h-7 text-primary-foreground" />
             </div>
             <h3 className="font-display text-xl text-foreground mb-4">Transferencia</h3>
-            <div className="space-y-2 text-sm font-body">
-              <p className="text-muted-foreground">CVU</p>
-              <p className="text-foreground font-medium">0000003100072830126087</p>
+            <div className="space-y-3 text-sm font-body">
+              <p className="text-muted-foreground">Mercado Pago</p>
+              <div>
+                <p className="text-foreground font-medium break-all mb-2">CVU: {CVU}</p>
+                <Button
+                  onClick={() => handleCopy(CVU, 'cvu')}
+                  size="sm"
+                  variant="outline"
+                  className="w-full text-xs"
+                >
+                  {copiedCVU ? (
+                    <>
+                      <Check className="w-3 h-3 mr-1" />
+                      Copiado
+                    </>
+                  ) : (
+                    <>
+                      <Copy className="w-3 h-3 mr-1" />
+                      Copiar CVU
+                    </>
+                  )}
+                </Button>
+              </div>
             </div>
           </div>
 
-          {/* Digital Wallet */}
+          {/* Alias Card */}
           <div
             className={`bg-card border border-border rounded-3xl p-8 text-center shadow-soft-lg transition-all duration-700 hover:shadow-gold ${isInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
               }`}
@@ -53,14 +95,29 @@ const GiftRegistrySection = () => {
               <Wallet className="w-7 h-7 text-primary-foreground" />
             </div>
             <h3 className="font-display text-xl text-foreground mb-4">Billetera Virtual</h3>
-            <div className="space-y-2 text-sm font-body">
-              <p className="text-muted-foreground">Mercado Pago</p>
-              <p className="text-foreground font-medium">miafioquetti.mp</p>
-            </div>
-
-            {/* QR Placeholder */}
-            <div className="mt-4 w-32 h-32 mx-auto bg-secondary/50 rounded-2xl flex items-center justify-center border border-border">
-              <span className="text-muted-foreground text-xs">QR Code</span>
+            <div className="space-y-3 text-sm font-body">
+              <p className="text-muted-foreground">Transferencia bancaria</p>
+              <div>
+                <p className="text-muted-foreground mb-2">Alias: {ALIAS}</p>
+                <Button
+                  onClick={() => handleCopy(ALIAS, 'alias')}
+                  size="sm"
+                  variant="outline"
+                  className="w-full text-xs"
+                >
+                  {copiedAlias ? (
+                    <>
+                      <Check className="w-3 h-3 mr-1" />
+                      Copiado
+                    </>
+                  ) : (
+                    <>
+                      <Copy className="w-3 h-3 mr-1" />
+                      Copiar Alias
+                    </>
+                  )}
+                </Button>
+              </div>
             </div>
           </div>
         </div>

@@ -32,7 +32,7 @@ const WelcomeModal = ({ onEnter }: WelcomeModalProps) => {
 
                 {/* Title */}
                 <h1 className="font-display text-4xl sm:text-5xl md:text-6xl mb-4 gold-text-gradient">
-                    Mia Fioquetti
+                    Mia Valentina
                 </h1>
 
                 <p className="text-sm sm:text-base tracking-[0.3em] uppercase text-muted-foreground mb-6">

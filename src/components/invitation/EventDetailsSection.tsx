@@ -31,8 +31,8 @@ const EventDetailsSection = () => {
               <Calendar className="w-8 h-8 text-primary-foreground" />
             </div>
             <h3 className="font-display text-xl text-foreground mb-2">Fecha</h3>
-            <p className="font-body text-primary font-medium text-lg">15 de Marzo, 2025</p>
-            <p className="font-body text-muted-foreground text-sm mt-1">Sábado</p>
+            <p className="font-body text-primary font-medium text-lg">7 de Febrero, 2025</p>
+            <p className="font-body text-muted-foreground text-sm mt-1">Viernes</p>
           </div>
 
           {/* Time */}
@@ -45,8 +45,8 @@ const EventDetailsSection = () => {
               <Clock className="w-8 h-8 text-primary-foreground" />
             </div>
             <h3 className="font-display text-xl text-foreground mb-2">Hora</h3>
-            <p className="font-body text-primary font-medium text-lg">20:00 hs</p>
-            <p className="font-body text-muted-foreground text-sm mt-1">Recepción de invitados</p>
+            <p className="font-body text-primary font-medium text-lg">20:30 hs</p>
+            <p className="font-body text-muted-foreground text-sm mt-1">Hasta las 05:00 hs</p>
           </div>
 
           {/* Location */}
@@ -59,8 +59,8 @@ const EventDetailsSection = () => {
               <MapPin className="w-8 h-8 text-primary-foreground" />
             </div>
             <h3 className="font-display text-xl text-foreground mb-2">Lugar</h3>
-            <p className="font-body text-primary font-medium text-lg">Salón Royal Palace</p>
-            <p className="font-body text-muted-foreground text-sm mt-1">Av. Principal 1234</p>
+            <p className="font-body text-primary font-medium text-lg">Quincho La Tranquera</p>
+            <p className="font-body text-muted-foreground text-sm mt-1">Laprida 2482</p>
           </div>
         </div>
 
@@ -71,7 +71,7 @@ const EventDetailsSection = () => {
           style={{ transitionDelay: '400ms' }}
         >
           <iframe
-            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3284.0168878894976!2d-58.38375908477042!3d-34.60373888045945!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4aa9f0a6da5edb%3A0x11bead4e234e558b!2sObelisco!5e0!3m2!1ses!2sar!4v1635781234567!5m2!1ses!2sar"
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3346.8919236753!2d-68.79172152389!3d-33.01942117349!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x967e760e52f1e5eb%3A0x7e8b8c2a1d3e5f6a!2sQuincho%20La%20Tranquera!5e0!3m2!1ses-419!2sar!4v1734727000000!5m2!1ses-419!2sar"
             width="100%"
             height="350"
             className="md:h-[400px]"
