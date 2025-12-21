@@ -31,8 +31,8 @@ const EventDetailsSection = () => {
               <Calendar className="w-8 h-8 text-primary-foreground" />
             </div>
             <h3 className="font-display text-xl text-foreground mb-2">Fecha</h3>
-            <p className="font-body text-primary font-medium text-lg">7 de Febrero, 2025</p>
-            <p className="font-body text-muted-foreground text-sm mt-1">Viernes</p>
+            <p className="font-body text-primary font-medium text-lg">7 de Febrero, 2026</p>
+            <p className="font-body text-muted-foreground text-sm mt-1">Sábado</p>
           </div>
 
           {/* Time */}
