@@ -1,6 +1,6 @@
 import { useInView } from "@/hooks/useInView";
 import { Calendar, Clock, MapPin } from "lucide-react";
-import SectionBadge from "@/components/common/SectionBadge";
+
 
 const EventDetailsSection = () => {
   const { ref, isInView } = useInView({ threshold: 0.3 });
