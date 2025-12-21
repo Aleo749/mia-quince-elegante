@@ -58,6 +58,36 @@ const GallerySection = () => {
     return () => window.removeEventListener("keydown", handleKeyDown);
   }, [isLightboxOpen, handleNext, handlePrev]);
 
+  // Touch/Swipe support for mobile
+  const [touchStart, setTouchStart] = useState<number | null>(null);
+  const [touchEnd, setTouchEnd] = useState<number | null>(null);
+
+  // Minimum swipe distance (in px)
+  const minSwipeDistance = 50;
+
+  const onTouchStart = (e: React.TouchEvent) => {
+    setTouchEnd(null);
+    setTouchStart(e.targetTouches[0].clientX);
+  };
+
+  const onTouchMove = (e: React.TouchEvent) => {
+    setTouchEnd(e.targetTouches[0].clientX);
+  };
+
+  const onTouchEnd = () => {
+    if (!touchStart || !touchEnd) return;
+
+    const distance = touchStart - touchEnd;
+    const isLeftSwipe = distance > minSwipeDistance;
+    const isRightSwipe = distance < -minSwipeDistance;
+
+    if (isLeftSwipe) {
+      handleNext();
+    } else if (isRightSwipe) {
+      handlePrev();
+    }
+  };
+
   return (
     <section
       ref={ref}
@@ -82,6 +112,9 @@ const GallerySection = () => {
           <div
             className="aspect-[4/5] md:aspect-square relative rounded-3xl overflow-hidden shadow-2xl cursor-pointer group"
             onClick={() => setIsLightboxOpen(true)}
+            onTouchStart={onTouchStart}
+            onTouchMove={onTouchMove}
+            onTouchEnd={onTouchEnd}
           >
             {/* Images Container with Slide Effect */}
             <div className="relative w-full h-full">
@@ -123,50 +156,53 @@ const GallerySection = () => {
             </div>
 
             {/* Gradient Overlays for Better Button Visibility */}
-            <div className="absolute inset-y-0 left-0 w-32 bg-gradient-to-r from-black/30 via-black/10 to-transparent pointer-events-none" />
-            <div className="absolute inset-y-0 right-0 w-32 bg-gradient-to-l from-black/30 via-black/10 to-transparent pointer-events-none" />
             <div className="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-black/50 to-transparent pointer-events-none" />
 
-            {/* Enhanced Carousel Controls - Always Visible */}
-            <button
-              onClick={handlePrev}
-              className="absolute left-3 md:left-6 top-1/2 -translate-y-1/2 w-14 h-14 md:w-16 md:h-16 rounded-full bg-white/90 backdrop-blur-md hover:bg-white hover:scale-110 active:scale-95 flex items-center justify-center transition-all duration-300 shadow-xl z-20 group/btn focus-visible-ring"
-              aria-label="Imagen anterior"
-            >
-              <ChevronLeft className="w-6 h-6 md:w-7 md:h-7 text-primary group-hover/btn:text-accent transition-colors" />
-            </button>
-            <button
-              onClick={handleNext}
-              className="absolute right-3 md:right-6 top-1/2 -translate-y-1/2 w-14 h-14 md:w-16 md:h-16 rounded-full bg-white/90 backdrop-blur-md hover:bg-white hover:scale-110 active:scale-95 flex items-center justify-center transition-all duration-300 shadow-xl z-20 group/btn focus-visible-ring"
-              aria-label="Siguiente imagen"
-            >
-              <ChevronRight className="w-6 h-6 md:w-7 md:h-7 text-primary group-hover/btn:text-accent transition-colors" />
-            </button>
-
-            {/* Enhanced Indicators with Counter */}
+            {/* Compact Pagination Controls with Counter */}
             <div className="absolute bottom-4 md:bottom-6 left-1/2 -translate-x-1/2 z-10">
               {/* Image Counter */}
               <div className="text-white/90 text-sm font-medium mb-3 text-center backdrop-blur-sm bg-black/20 px-3 py-1 rounded-full">
                 {currentIndex + 1} / {galleryImages.length}
               </div>
 
-              {/* Dots Indicators */}
-              <div className="flex gap-2 justify-center">
-                {galleryImages.map((_, index) => (
-                  <button
-                    key={index}
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      setSlideDirection(index > currentIndex ? 'right' : 'left');
-                      setCurrentIndex(index);
-                    }}
-                    aria-label={`Ir a imagen ${index + 1}`}
-                    className={`rounded-full transition-all duration-500 ${index === currentIndex
-                      ? "w-10 h-2.5 bg-white shadow-lg"
-                      : "w-2.5 h-2.5 bg-white/60 hover:bg-white/90 hover:scale-125"
-                      }`}
-                  />
-                ))}
+              {/* Dots Indicators with Navigation Buttons */}
+              <div className="flex items-center gap-3 justify-center">
+                {/* Previous Button */}
+                <button
+                  onClick={handlePrev}
+                  className="w-[30px] h-[30px] rounded-full bg-white/90 backdrop-blur-md hover:bg-white hover:scale-110 active:scale-95 flex items-center justify-center transition-all duration-300 shadow-lg z-20 group/btn"
+                  aria-label="Imagen anterior"
+                >
+                  <ChevronLeft className="w-4 h-4 text-primary group-hover/btn:text-accent transition-colors" />
+                </button>
+
+                {/* Dots */}
+                <div className="flex gap-2">
+                  {galleryImages.map((_, index) => (
+                    <button
+                      key={index}
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        setSlideDirection(index > currentIndex ? 'right' : 'left');
+                        setCurrentIndex(index);
+                      }}
+                      aria-label={`Ir a imagen ${index + 1}`}
+                      className={`rounded-full transition-all duration-500 ${index === currentIndex
+                        ? "w-10 h-2.5 bg-white shadow-lg"
+                        : "w-2.5 h-2.5 bg-white/60 hover:bg-white/90 hover:scale-125"
+                        }`}
+                    />
+                  ))}
+                </div>
+
+                {/* Next Button */}
+                <button
+                  onClick={handleNext}
+                  className="w-[30px] h-[30px] rounded-full bg-white/90 backdrop-blur-md hover:bg-white hover:scale-110 active:scale-95 flex items-center justify-center transition-all duration-300 shadow-lg z-20 group/btn"
+                  aria-label="Siguiente imagen"
+                >
+                  <ChevronRight className="w-4 h-4 text-primary group-hover/btn:text-accent transition-colors" />
+                </button>
               </div>
             </div>
           </div>

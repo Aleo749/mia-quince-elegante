@@ -7,44 +7,49 @@ import EventDetailsSection from "@/components/invitation/EventDetailsSection";
 import DressCodeSection from "@/components/invitation/DressCodeSection";
 import RSVPSection from "@/components/invitation/RSVPSection";
 import GiftRegistrySection from "@/components/invitation/GiftRegistrySection";
-import ContactSection from "@/components/invitation/ContactSection";
 import Footer from "@/components/invitation/Footer";
-import WelcomeModal from "@/components/common/WelcomeModal";
+import FloatingMusicButton from "@/components/common/FloatingMusicButton";
 import { useAudio } from "@/context/AudioContext";
 
 const Index = () => {
   const rsvpRef = useRef<HTMLElement>(null);
-  const [showWelcome, setShowWelcome] = useState(true);
+  const countdownRef = useRef<HTMLElement>(null);
+  const [showFullInvitation, setShowFullInvitation] = useState(false);
   const { play } = useAudio();
 
   const scrollToRSVP = () => {
     rsvpRef.current?.scrollIntoView({ behavior: "smooth" });
   };
 
-  const handleEnter = async () => {
-    // Start music with full volume (user has interacted)
+  const handleOpenInvitation = async () => {
+    // Start music playback
     await play();
-    // Hide modal
-    setShowWelcome(false);
+    // Reveal full invitation content
+    setShowFullInvitation(true);
+    // Scroll to countdown section after a short delay to ensure content is rendered
+    setTimeout(() => {
+      countdownRef.current?.scrollIntoView({ behavior: "smooth" });
+    }, 100);
   };
 
   return (
     <>
-      {showWelcome && <WelcomeModal onEnter={handleEnter} />}
-      {!showWelcome && (
-        <main className="min-h-screen bg-background">
-          <HeroSection onScrollToRSVP={scrollToRSVP} />
-          <CountdownSection />
-          <MessageSection />
-          <GallerySection />
-          <EventDetailsSection />
-          <DressCodeSection />
-          <RSVPSection rsvpRef={rsvpRef} />
-          <GiftRegistrySection />
-          <ContactSection />
-          <Footer />
-        </main>
-      )}
+      <main className="min-h-screen bg-background">
+        <HeroSection onOpenInvitation={handleOpenInvitation} />
+        {showFullInvitation && (
+          <>
+            <CountdownSection countdownRef={countdownRef} />
+            <MessageSection />
+            <GallerySection />
+            <EventDetailsSection />
+            <DressCodeSection />
+            <RSVPSection rsvpRef={rsvpRef} />
+            <GiftRegistrySection />
+            <Footer />
+          </>
+        )}
+      </main>
+      {showFullInvitation && <FloatingMusicButton />}
     </>
   );
 };

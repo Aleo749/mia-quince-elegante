@@ -22,7 +22,7 @@ const Footer = () => {
 
         {/* Signature */}
         <p className="font-display text-3xl gold-text-gradient mb-8">
-          Mia Fioquetti
+          Mia Valentina
         </p>
 
         {/* Copyright */}

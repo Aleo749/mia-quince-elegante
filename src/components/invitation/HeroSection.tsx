@@ -4,10 +4,10 @@ import { Button } from "@/components/ui/button";
 import { useAudio } from "@/context/AudioContext";
 
 interface HeroSectionProps {
-  onScrollToRSVP: () => void;
+  onOpenInvitation: () => void;
 }
 
-const HeroSection = ({ onScrollToRSVP }: HeroSectionProps) => {
+const HeroSection = ({ onOpenInvitation }: HeroSectionProps) => {
   const { isPlaying, toggle } = useAudio();
 
   return (
@@ -40,32 +40,9 @@ const HeroSection = ({ onScrollToRSVP }: HeroSectionProps) => {
         style={{ animationDelay: "0.3s" }}
         className="font-display text-5xl sm:text-7xl md:text-8xl lg:text-9xl text-center mb-4 animate-fade-in-up gold-text-gradient"
       >
-        Mia Fioquetti
+        Mia Valentina
       </h1>
 
-      {/* Music Player Button */}
-      <button
-        onClick={toggle}
-        className="flex items-center gap-3 mb-6 px-6 py-3 rounded-full bg-card/80 backdrop-blur-sm border border-border shadow-soft hover:shadow-soft-lg transition-all duration-300 animate-fade-in-up group"
-        style={{ animationDelay: "0.4s" }}
-      >
-        <div className="w-10 h-10 rounded-full gold-gradient flex items-center justify-center shadow-gold group-hover:scale-110 transition-transform">
-          {isPlaying ? (
-            <Pause className="w-4 h-4 text-primary-foreground" />
-          ) : (
-            <Play className="w-4 h-4 text-primary-foreground ml-0.5" />
-          )}
-        </div>
-        <div className="text-left">
-          <p className="font-body text-xs text-muted-foreground">
-            {isPlaying ? "Reproduciendo" : "Toca para escuchar"}
-          </p>
-          <p className="font-body text-sm text-foreground flex items-center gap-1.5">
-            <Music className="w-3 h-3 text-primary" />
-            Siempre Brillarás - Tini
-          </p>
-        </div>
-      </button>
 
       {/* Decorative line */}
       <div className="w-48 h-px gold-gradient mb-8 animate-fade-in rounded-full" style={{ animationDelay: "0.5s" }} />
@@ -77,12 +54,12 @@ const HeroSection = ({ onScrollToRSVP }: HeroSectionProps) => {
 
       {/* CTA Button */}
       <Button
-        onClick={onScrollToRSVP}
+        onClick={onOpenInvitation}
         size="lg"
         className="animate-fade-in-up gold-gradient text-primary-foreground font-body font-medium tracking-wide hover:shadow-gold transition-all duration-300 px-8 py-6 text-lg rounded-full"
         style={{ animationDelay: "0.7s" }}
       >
-        Confirmar Asistencia
+        Abrir invitación
       </Button>
     </section>
   );
