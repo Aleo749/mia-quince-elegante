@@ -7,6 +7,7 @@ import EventDetailsSection from "@/components/invitation/EventDetailsSection";
 import DressCodeSection from "@/components/invitation/DressCodeSection";
 import RSVPSection from "@/components/invitation/RSVPSection";
 import GiftRegistrySection from "@/components/invitation/GiftRegistrySection";
+import ContactSection from "@/components/invitation/ContactSection";
 import Footer from "@/components/invitation/Footer";
 import FloatingMusicButton from "@/components/common/FloatingMusicButton";
 import { useAudio } from "@/context/AudioContext";
@@ -45,6 +46,7 @@ const Index = () => {
             <DressCodeSection />
             <RSVPSection rsvpRef={rsvpRef} />
             <GiftRegistrySection />
+            <ContactSection />
             <Footer />
           </>
         )}

@@ -44,9 +44,19 @@ const EventDetailsSection = () => {
             <div className="w-16 h-16 rounded-2xl gold-gradient flex items-center justify-center mx-auto mb-4 shadow-gold">
               <Clock className="w-8 h-8 text-primary-foreground" />
             </div>
-            <h3 className="font-display text-xl text-foreground mb-2">Hora</h3>
-            <p className="font-body text-primary font-medium text-lg">20:30 hs</p>
-            <p className="font-body text-muted-foreground text-sm mt-1">Hasta las 05:00 hs</p>
+            <h3 className="font-display text-xl text-foreground mb-4">Hora</h3>
+
+            {/* Cena */}
+            <div className="mb-3">
+              <p className="font-body text-foreground font-semibold text-base">Cena</p>
+              <p className="font-body text-primary font-medium text-lg">20:30 a 5:00</p>
+            </div>
+
+            {/* Baile */}
+            <div>
+              <p className="font-body text-foreground font-semibold text-base">Baile</p>
+              <p className="font-body text-primary font-medium text-lg">00:00 a 5:00</p>
+            </div>
           </div>
 
           {/* Location */}
@@ -71,7 +81,7 @@ const EventDetailsSection = () => {
           style={{ transitionDelay: '400ms' }}
         >
           <iframe
-            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3346.8919236753!2d-68.79172152389!3d-33.01942117349!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x967e760e52f1e5eb%3A0x7e8b8c2a1d3e5f6a!2sQuincho%20La%20Tranquera!5e0!3m2!1ses-419!2sar!4v1734727000000!5m2!1ses-419!2sar"
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d826.7229809188338!2d-68.78963799999999!3d-33.0192343!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x967e7340e6dd7e5f%3A0x58db5f3635eb5a5!2sQuincho%20La%20Tranquera!5e0!3m2!1ses-419!2sar!4v1734877775000!5m2!1ses-419!2sar"
             width="100%"
             height="350"
             className="md:h-[400px]"

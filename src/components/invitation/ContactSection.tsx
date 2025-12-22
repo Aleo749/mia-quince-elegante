@@ -1,10 +1,31 @@
+import { useState } from "react";
 import { useInView } from "@/hooks/useInView";
-import { Phone, MessageCircle } from "lucide-react";
+import { Phone, Copy, Check } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 
 const ContactSection = () => {
   const { ref, isInView } = useInView({ threshold: 0.3 });
+  const [copiedPapa, setCopiedPapa] = useState(false);
+  const [copiedStella, setCopiedStella] = useState(false);
+
+  const PAPA_PHONE = "1542612097811";
+  const STELLA_PHONE = "1542612051261";
+
+  const handleCopy = async (phone: string, type: 'papa' | 'stella') => {
+    try {
+      await navigator.clipboard.writeText(phone);
+      if (type === 'papa') {
+        setCopiedPapa(true);
+        setTimeout(() => setCopiedPapa(false), 2000);
+      } else {
+        setCopiedStella(true);
+        setTimeout(() => setCopiedStella(false), 2000);
+      }
+    } catch (err) {
+      console.error('Failed to copy:', err);
+    }
+  };
 
   return (
     <section
@@ -35,32 +56,49 @@ const ContactSection = () => {
 
           <div className="space-y-4">
             <div className="p-4 rounded-2xl bg-secondary/50">
-              <p className="font-display text-lg text-foreground">Mamá de Mia</p>
-              <p className="font-body text-muted-foreground">+54 9 11 1234-5678</p>
+              <p className="font-display text-lg text-foreground mb-2">Papá de Mia</p>
+              <p className="font-body text-foreground font-medium mb-3">{PAPA_PHONE}</p>
+              <Button
+                onClick={() => handleCopy(PAPA_PHONE, 'papa')}
+                size="sm"
+                variant="outline"
+                className="w-full text-xs"
+              >
+                {copiedPapa ? (
+                  <>
+                    <Check className="w-3 h-3 mr-1" />
+                    Copiado
+                  </>
+                ) : (
+                  <>
+                    <Copy className="w-3 h-3 mr-1" />
+                    Copiar Teléfono
+                  </>
+                )}
+              </Button>
             </div>
             <div className="p-4 rounded-2xl bg-secondary/50">
-              <p className="font-display text-lg text-foreground">Papá de Mia</p>
-              <p className="font-body text-muted-foreground">+54 9 11 8765-4321</p>
+              <p className="font-display text-lg text-foreground mb-2">Stella</p>
+              <p className="font-body text-foreground font-medium mb-3">{STELLA_PHONE}</p>
+              <Button
+                onClick={() => handleCopy(STELLA_PHONE, 'stella')}
+                size="sm"
+                variant="outline"
+                className="w-full text-xs"
+              >
+                {copiedStella ? (
+                  <>
+                    <Check className="w-3 h-3 mr-1" />
+                    Copiado
+                  </>
+                ) : (
+                  <>
+                    <Copy className="w-3 h-3 mr-1" />
+                    Copiar Teléfono
+                  </>
+                )}
+              </Button>
             </div>
-          </div>
-
-          <div className="mt-8 flex flex-col sm:flex-row gap-4 justify-center">
-            <Button
-              variant="outline"
-              className="border-green-500/30 text-green-600 hover:bg-green-500/5 rounded-full touch-target focus-visible-ring"
-              onClick={() => window.open("https://wa.me/5491112345678", "_blank")}
-            >
-              <MessageCircle className="w-4 h-4 mr-2" />
-              WhatsApp Mamá
-            </Button>
-            <Button
-              variant="outline"
-              className="border-green-500/30 text-green-600 hover:bg-green-500/5 rounded-full touch-target focus-visible-ring"
-              onClick={() => window.open("https://wa.me/5491187654321", "_blank")}
-            >
-              <MessageCircle className="w-4 h-4 mr-2" />
-              WhatsApp Papá
-            </Button>
           </div>
         </div>
       </div>

@@ -34,7 +34,7 @@ const GiftRegistrySection = () => {
     >
 
 
-      <div className="max-w-2xl mx-auto">
+      <div className="max-w-6xl mx-auto">
         <div className={`text-center mb-12 transition-all duration-700 ${isInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
           <div className="w-14 h-14 rounded-full bg-card shadow-soft flex items-center justify-center mx-auto mb-4">
             <Gift className="w-7 h-7 text-primary" />
@@ -48,15 +48,15 @@ const GiftRegistrySection = () => {
           </p>
         </div>
 
-        <div className="grid md:grid-cols-2 gap-6">
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
           {/* CVU Card */}
           <div
-            className={`bg-card border border-border rounded-3xl p-8 text-center shadow-soft-lg transition-all duration-700 hover:shadow-gold ${isInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
+            className={`bg-card border border-border rounded-3xl p-8 md:p-10 text-center shadow-soft-lg transition-all duration-700 hover:shadow-gold ${isInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
               }`}
             style={{ transitionDelay: '100ms' }}
           >
-            <div className="w-14 h-14 rounded-2xl gold-gradient flex items-center justify-center mx-auto mb-4 shadow-gold">
-              <CreditCard className="w-7 h-7 text-primary-foreground" />
+            <div className="w-16 h-16 rounded-2xl gold-gradient flex items-center justify-center mx-auto mb-4 shadow-gold">
+              <CreditCard className="w-8 h-8 text-primary-foreground" />
             </div>
             <h3 className="font-display text-xl text-foreground mb-4">Transferencia</h3>
             <div className="space-y-3 text-sm font-body">
@@ -87,18 +87,18 @@ const GiftRegistrySection = () => {
 
           {/* Alias Card */}
           <div
-            className={`bg-card border border-border rounded-3xl p-8 text-center shadow-soft-lg transition-all duration-700 hover:shadow-gold ${isInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
+            className={`bg-card border border-border rounded-3xl p-8 md:p-10 text-center shadow-soft-lg transition-all duration-700 hover:shadow-gold ${isInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
               }`}
             style={{ transitionDelay: '200ms' }}
           >
-            <div className="w-14 h-14 rounded-2xl gold-gradient flex items-center justify-center mx-auto mb-4 shadow-gold">
-              <Wallet className="w-7 h-7 text-primary-foreground" />
+            <div className="w-16 h-16 rounded-2xl gold-gradient flex items-center justify-center mx-auto mb-4 shadow-gold">
+              <Wallet className="w-8 h-8 text-primary-foreground" />
             </div>
             <h3 className="font-display text-xl text-foreground mb-4">Billetera Virtual</h3>
             <div className="space-y-3 text-sm font-body">
               <p className="text-muted-foreground">Transferencia bancaria</p>
               <div>
-                <p className="text-muted-foreground mb-2">Alias: {ALIAS}</p>
+                <p className="text-foreground font-medium mb-2">Alias: {ALIAS}</p>
                 <Button
                   onClick={() => handleCopy(ALIAS, 'alias')}
                   size="sm"
@@ -118,6 +118,23 @@ const GiftRegistrySection = () => {
                   )}
                 </Button>
               </div>
+            </div>
+          </div>
+
+          {/* Cash Card */}
+          <div
+            className={`bg-card border border-border rounded-3xl p-8 md:p-10 text-center shadow-soft-lg transition-all duration-700 hover:shadow-gold ${isInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
+              }`}
+            style={{ transitionDelay: '300ms' }}
+          >
+            <div className="w-16 h-16 rounded-2xl gold-gradient flex items-center justify-center mx-auto mb-4 shadow-gold">
+              <Gift className="w-8 h-8 text-primary-foreground" />
+            </div>
+            <h3 className="font-display text-xl text-foreground mb-4">Efectivo</h3>
+            <div className="space-y-3 text-sm font-body">
+              <p className="text-foreground font-medium leading-relaxed">
+                En la entrada del salón encontrarás un cofre especial para tus obsequios
+              </p>
             </div>
           </div>
         </div>
