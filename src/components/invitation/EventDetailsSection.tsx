@@ -49,7 +49,7 @@ const EventDetailsSection = () => {
             {/* Cena */}
             <div className="mb-3">
               <p className="font-body text-foreground font-semibold text-base">Cena</p>
-              <p className="font-body text-primary font-medium text-lg">20:30 a 5:00</p>
+              <p className="font-body text-primary font-medium text-lg">20:30 a 00:00</p>
             </div>
 
             {/* Baile */}
