@@ -268,7 +268,7 @@ const RSVPSection = ({ rsvpRef }: RSVPSectionProps) => {
           </h2>
           <div className="w-24 h-px gold-gradient mx-auto mb-4 rounded-full" />
           <p className="font-body text-muted-foreground">
-            Por favor, confirma tu asistencia antes del 1 de Marzo
+            Por favor, confirma tu asistencia antes del 27 de Enero
           </p>
         </div>
 
