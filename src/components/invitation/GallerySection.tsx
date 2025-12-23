@@ -5,6 +5,8 @@ import mia1 from "@/assets/gallery/mia-1.jpeg";
 import mia2 from "@/assets/gallery/mia-2.jpeg";
 import mia3 from "@/assets/gallery/mia-3.jpeg";
 import mia4 from "@/assets/gallery/mia-4.jpeg";
+import mia5 from "@/assets/gallery/mia-5.jpeg";
+import mia6 from "@/assets/gallery/mia-6.jpeg";
 
 
 const galleryImages = [
@@ -12,6 +14,8 @@ const galleryImages = [
   { src: mia2, alt: "Mia en el tobogán" },
   { src: mia3, alt: "Mia en el auto" },
   { src: mia4, alt: "Mia en el restaurante" },
+  { src: mia5, alt: "Mia con vestido blanco" },
+  { src: mia6, alt: "Mia en la playa" },
 ];
 
 const GallerySection = () => {
