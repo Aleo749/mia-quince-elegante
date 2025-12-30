@@ -47,15 +47,9 @@ const EventDetailsSection = () => {
             <h3 className="font-display text-xl text-foreground mb-4">Hora</h3>
 
             {/* Cena */}
-            <div className="mb-3">
+            <div>
               <p className="font-body text-foreground font-semibold text-base">Cena</p>
               <p className="font-body text-primary font-medium text-lg">20:30 a 00:00</p>
-            </div>
-
-            {/* Baile */}
-            <div>
-              <p className="font-body text-foreground font-semibold text-base">Baile</p>
-              <p className="font-body text-primary font-medium text-lg">00:00 a 5:00</p>
             </div>
           </div>
 

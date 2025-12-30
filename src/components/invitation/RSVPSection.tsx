@@ -39,6 +39,7 @@ const RSVPSection = ({ rsvpRef }: RSVPSectionProps) => {
   const [guests, setGuests] = useState<Guest[]>([
     { id: "1", firstName: "", lastName: "", attending: true }
   ]);
+  const [phoneNumber, setPhoneNumber] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [addingGuest, setAddingGuest] = useState(false);
@@ -96,10 +97,13 @@ const RSVPSection = ({ rsvpRef }: RSVPSectionProps) => {
   // Verificar si el formulario es válido
   const isFormValid = (): boolean => {
     // Verificar que todos los invitados tengan nombre y apellido
-    return guests.every(g => {
+    const allGuestsValid = guests.every(g => {
       const hasName = g.firstName.trim() !== "" && g.lastName.trim() !== "";
       return hasName;
     });
+    // Verificar que el número de teléfono esté completo
+    const phoneValid = phoneNumber.trim() !== "";
+    return allGuestsValid && phoneValid;
   };
 
   const submitGuestsToDatabase = async (guestsToSubmit: Guest[]) => {
@@ -115,7 +119,7 @@ const RSVPSection = ({ rsvpRef }: RSVPSectionProps) => {
 
       const { data: groupData, error: groupError } = await supabase
         .from('rsvp_groups')
-        .insert({})
+        .insert({ phone_number: phoneNumber.trim() })
         .select()
         .single();
 
@@ -370,6 +374,35 @@ const RSVPSection = ({ rsvpRef }: RSVPSectionProps) => {
                       </div>
                     </div>
                   </div>
+
+                  {/* Campo de teléfono - Solo para el primer invitado */}
+                  {index === 0 && (
+                    <div className="space-y-2 mt-4">
+                      <Label htmlFor="phoneNumber" className="text-foreground font-body text-sm font-medium">
+                        Número de Teléfono
+                      </Label>
+                      <div className="relative">
+                        <Input
+                          id="phoneNumber"
+                          type="tel"
+                          value={phoneNumber}
+                          onChange={(e) => setPhoneNumber(e.target.value)}
+                          placeholder="Ej: +56912345678"
+                          className="h-12 md:h-11 border-2 transition-all duration-300 focus:border-primary/50 focus:ring-2 focus:ring-primary/20 focus-visible-ring"
+                        />
+                        {phoneNumber && (
+                          <div className="absolute right-3 top-1/2 -translate-y-1/2">
+                            <div className="w-5 h-5 rounded-full bg-primary/20 flex items-center justify-center">
+                              <Check className="w-3 h-3 text-primary" />
+                            </div>
+                          </div>
+                        )}
+                      </div>
+                      <p className="text-xs text-muted-foreground">
+                        Ingresa tu número de contacto para confirmar tu asistencia
+                      </p>
+                    </div>
+                  )}
 
                   {/* Separador entre invitados (excepto el último) */}
                   {index < guests.length - 1 && (
