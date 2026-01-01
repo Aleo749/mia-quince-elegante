@@ -50,6 +50,7 @@ const EventDetailsSection = () => {
             <div>
               <p className="font-body text-foreground font-semibold text-base">Cena</p>
               <p className="font-body text-primary font-medium text-lg">20:30 a 00:00</p>
+              <p className="font-body text-muted-foreground text-sm mt-1">Después de la cena comienza el baile</p>
             </div>
           </div>
 
