@@ -153,10 +153,7 @@ const GallerySection = () => {
                 );
               })}
 
-              {/* Overlay with instructions */}
-              <div className="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center pointer-events-none">
-                <Maximize2 className="text-white w-12 h-12 drop-shadow-lg scale-90 group-hover:scale-100 transition-transform" />
-              </div>
+
             </div>
 
             {/* Gradient Overlays for Better Button Visibility */}
@@ -215,46 +212,51 @@ const GallerySection = () => {
 
       {/* Enhanced Lightbox Modal */}
       {isLightboxOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/95 backdrop-blur-sm p-4 animate-fade-in">
+        <div className="fixed inset-0 z-50 flex flex-col items-center justify-center bg-black/95 backdrop-blur-sm p-4 animate-fade-in">
           {/* Close Button */}
           <button
             onClick={() => setIsLightboxOpen(false)}
-            className="absolute top-4 right-4 md:top-8 md:right-8 w-10 h-10 md:w-12 md:h-12 rounded-full bg-white/10 backdrop-blur-md hover:bg-white/20 flex items-center justify-center transition-all duration-300 group"
+            className="absolute top-4 right-4 md:top-8 md:right-8 w-10 h-10 md:w-12 md:h-12 rounded-full bg-white/10 backdrop-blur-md hover:bg-white/20 flex items-center justify-center transition-all duration-300 group z-50"
             aria-label="Cerrar"
           >
             <X className="w-6 h-6 md:w-7 md:h-7 text-white/70 group-hover:text-white transition-colors" />
           </button>
 
-          {/* Navigation Buttons */}
-          <button
-            onClick={handlePrev}
-            className="absolute left-4 md:left-8 top-1/2 -translate-y-1/2 w-12 h-12 md:w-16 md:h-16 rounded-full bg-white/10 backdrop-blur-md hover:bg-white/20 hover:scale-110 active:scale-95 flex items-center justify-center transition-all duration-300 group"
-            aria-label="Imagen anterior"
-          >
-            <ChevronLeft className="w-7 h-7 md:w-10 md:h-10 text-white/70 group-hover:text-white transition-colors" />
-          </button>
-
-          <div className="relative max-w-5xl max-h-[85vh] w-full flex items-center justify-center">
+          {/* Image Container */}
+          <div className="relative max-w-5xl w-full flex items-center justify-center flex-1 mb-4">
             <img
               src={galleryImages[currentIndex].src}
               alt={galleryImages[currentIndex].alt}
-              className="max-w-full max-h-[85vh] object-contain rounded-lg shadow-2xl"
+              className="max-w-full max-h-full object-contain rounded-lg shadow-2xl"
             />
           </div>
 
-          <button
-            onClick={handleNext}
-            className="absolute right-4 md:right-8 top-1/2 -translate-y-1/2 w-12 h-12 md:w-16 md:h-16 rounded-full bg-white/10 backdrop-blur-md hover:bg-white/20 hover:scale-110 active:scale-95 flex items-center justify-center transition-all duration-300 group"
-            aria-label="Siguiente imagen"
-          >
-            <ChevronRight className="w-7 h-7 md:w-10 md:h-10 text-white/70 group-hover:text-white transition-colors" />
-          </button>
+          {/* Bottom Navigation Controls */}
+          <div className="w-full max-w-5xl flex items-center justify-center gap-4 md:gap-8 pb-4 md:pb-6">
+            {/* Previous Button */}
+            <button
+              onClick={handlePrev}
+              className="w-12 h-12 md:w-14 md:h-14 rounded-full bg-white/10 backdrop-blur-md hover:bg-white/20 hover:scale-110 active:scale-95 flex items-center justify-center transition-all duration-300 group flex-shrink-0"
+              aria-label="Imagen anterior"
+            >
+              <ChevronLeft className="w-6 h-6 md:w-8 md:h-8 text-white/70 group-hover:text-white transition-colors" />
+            </button>
 
-          {/* Enhanced Counter */}
-          <div className="absolute bottom-6 md:bottom-8 left-1/2 -translate-x-1/2 px-4 py-2 rounded-full bg-white/10 backdrop-blur-md">
-            <span className="text-white font-medium tracking-wide text-sm md:text-base">
-              {currentIndex + 1} / {galleryImages.length}
-            </span>
+            {/* Counter */}
+            <div className="px-4 md:px-6 py-2 md:py-2.5 rounded-full bg-white/10 backdrop-blur-md flex-shrink-0">
+              <span className="text-white font-medium tracking-wide text-sm md:text-base whitespace-nowrap">
+                {currentIndex + 1} / {galleryImages.length}
+              </span>
+            </div>
+
+            {/* Next Button */}
+            <button
+              onClick={handleNext}
+              className="w-12 h-12 md:w-14 md:h-14 rounded-full bg-white/10 backdrop-blur-md hover:bg-white/20 hover:scale-110 active:scale-95 flex items-center justify-center transition-all duration-300 group flex-shrink-0"
+              aria-label="Siguiente imagen"
+            >
+              <ChevronRight className="w-6 h-6 md:w-8 md:h-8 text-white/70 group-hover:text-white transition-colors" />
+            </button>
           </div>
         </div>
       )}
