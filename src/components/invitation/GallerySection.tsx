@@ -34,7 +34,7 @@ const GallerySection = () => {
     }, 5000);
 
     return () => clearInterval(interval);
-  }, [isLightboxOpen]);
+  }, [isLightboxOpen, currentIndex]); // Reset timer when currentIndex changes
 
   const handleNext = useCallback((e?: React.MouseEvent) => {
     e?.stopPropagation();
