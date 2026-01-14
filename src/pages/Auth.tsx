@@ -1,32 +1,25 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useToast } from "@/hooks/use-toast";
-import { Lock, Mail, ArrowLeft } from "lucide-react";
+import { Lock, ArrowLeft } from "lucide-react";
+
+const ADMIN_PASSWORD = import.meta.env.VITE_ADMIN_PASSWORD || "admin123";
 
 const Auth = () => {
   const navigate = useNavigate();
   const { toast } = useToast();
-  const [isLogin, setIsLogin] = useState(true);
   const [loading, setLoading] = useState(false);
-  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
   useEffect(() => {
-    supabase.auth.onAuthStateChange((event, session) => {
-      if (session) {
-        navigate("/admin");
-      }
-    });
-
-    supabase.auth.getSession().then(({ data: { session } }) => {
-      if (session) {
-        navigate("/admin");
-      }
-    });
+    // Verificar si ya está autenticado
+    const isAuthenticated = localStorage.getItem("admin_authenticated") === "true";
+    if (isAuthenticated) {
+      navigate("/admin");
+    }
   }, [navigate]);
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -34,35 +27,19 @@ const Auth = () => {
     setLoading(true);
 
     try {
-      if (isLogin) {
-        const { error } = await supabase.auth.signInWithPassword({
-          email,
-          password,
-        });
-
-        if (error) throw error;
-
+      if (password === ADMIN_PASSWORD) {
+        localStorage.setItem("admin_authenticated", "true");
         toast({
           title: "¡Bienvenido!",
           description: "Sesión iniciada correctamente",
         });
         navigate("/admin");
       } else {
-        const { error } = await supabase.auth.signUp({
-          email,
-          password,
-          options: {
-            emailRedirectTo: `${window.location.origin}/admin`,
-          },
-        });
-
-        if (error) throw error;
-
         toast({
-          title: "¡Cuenta creada!",
-          description: "Ya puedes iniciar sesión",
+          title: "Error",
+          description: "Contraseña incorrecta",
+          variant: "destructive",
         });
-        setIsLogin(true);
       }
     } catch (error: any) {
       toast({
@@ -94,36 +71,18 @@ const Auth = () => {
             <Lock className="w-8 h-8 text-primary-foreground" />
           </div>
           <h1 className="font-display text-3xl text-primary mb-2">
-            Panel de Administración
+            Bienvenida Mia
           </h1>
           <p className="font-body text-muted-foreground">
-            {isLogin ? "Inicia sesión para continuar" : "Crea una cuenta de administrador"}
+            Ingresa la contraseña para acceder al panel
           </p>
         </div>
 
         {/* Form */}
         <form onSubmit={handleSubmit} className="bg-card border border-border rounded-lg p-6 space-y-6">
           <div>
-            <Label htmlFor="email" className="text-foreground">
-              Correo electrónico
-            </Label>
-            <div className="relative mt-1">
-              <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
-              <Input
-                id="email"
-                type="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                placeholder="correo@ejemplo.com"
-                className="pl-10 bg-input border-border text-foreground placeholder:text-muted-foreground"
-                required
-              />
-            </div>
-          </div>
-
-          <div>
             <Label htmlFor="password" className="text-foreground">
-              Contraseña
+              Contraseña de Administración
             </Label>
             <div className="relative mt-1">
               <Lock className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
@@ -134,7 +93,6 @@ const Auth = () => {
                 onChange={(e) => setPassword(e.target.value)}
                 placeholder="••••••••"
                 className="pl-10 bg-input border-border text-foreground placeholder:text-muted-foreground"
-                minLength={6}
                 required
               />
             </div>
@@ -145,18 +103,8 @@ const Auth = () => {
             disabled={loading}
             className="w-full gold-gradient text-primary-foreground font-medium"
           >
-            {loading ? "Cargando..." : isLogin ? "Iniciar Sesión" : "Crear Cuenta"}
+            {loading ? "Cargando..." : "Acceder"}
           </Button>
-
-          <div className="text-center">
-            <button
-              type="button"
-              onClick={() => setIsLogin(!isLogin)}
-              className="font-body text-sm text-primary hover:underline"
-            >
-              {isLogin ? "¿No tienes cuenta? Regístrate" : "¿Ya tienes cuenta? Inicia sesión"}
-            </button>
-          </div>
         </form>
       </div>
     </div>
